@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Yennifer Pico | Portfolio Personal</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background-color:#f4f1ea;
+  font-family:'Segoe UI', Roboto, sans-serif;
+  line-height:1.5;
+  color:#2e2a28;
+  padding:2rem 1.5rem;
+}
+
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  background:#fffef7;
+  border-radius:32px;
+  padding:2rem;
+  box-shadow:0 12px 28px rgba(0,0,0,.05);
+}
+
+/* PERFIL */
+.hero{
+  display:flex;
+  gap:2rem;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:2px solid #e9e2d4;
+  padding-bottom:2rem;
+  margin-bottom:2.5rem;
+}
+
+.perfil-texto{flex:2}
+
+.perfil-texto h1{
+  font-size:2.8rem;
+  font-weight:500;
+  margin-bottom:.5rem;
+}
+
+.tagline{
+  font-size:1.2rem;
+  color:#8b7a6b;
+  border-left:3px solid #cfc5b5;
+  padding-left:1rem;
+  margin-bottom:1rem;
+}
+
+.descripcion{color:#5a554e}
+
+.avatar-circle{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow:0 6px 12px rgba(0,0,0,.15);
+}
+
+.avatar-circle img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* INFO */
+.info-cards{
+  display:flex;
+  flex-wrap:wrap;
+  gap:1.2rem;
+  margin-bottom:2.5rem;
+}
+
+.card{
+  background:#faf8f2;
+  border-radius:24px;
+  padding:1.2rem 1.5rem;
+  border:1px solid #ece3d8;
+  flex:1;
+  min-width:180px;
+}
+
+.card h3{
+  font-size:1rem;
+  color:#b2a088;
+  margin-bottom:.5rem;
+}
+
+/* GALERÍA */
+.seccion-galeria h2{
+  font-size:1.7rem;
+  color:#4f4a42;
+  border-left:4px solid #cfc2b0;
+  padding-left:1rem;
+  margin-bottom:1rem;
+}
+
+.botones-grid{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-bottom:2rem;
+}
+
+.btn-imagen{
+  background:#e7e0d4;
+  border:none;
+  padding:.7rem 1.6rem;
+  border-radius:60px;
+  cursor:pointer;
+  font-size:1rem;
+}
+
+/* ACORDEÓN */
+.panel-imagen{
+  background:#fefcf6;
+  border:1px solid #ece1d2;
+  border-radius:28px;
+  margin-bottom:1rem;
+  overflow:hidden;
+}
+
+.panel-header{
+  background:#f5efe7;
+  padding:.8rem 1.5rem;
+  display:flex;
+  justify-content:space-between;
+  cursor:pointer;
+}
+
+.panel-contenido{
+  max-height:0;
+  overflow:hidden;
+  padding:0 1.5rem;
+  transition:max-height .4s ease, padding .3s ease;
+}
+
+.panel-imagen.abierto .panel-contenido{
+  max-height:700px;
+  padding:1.5rem;
+}
+
+/* IMÁGENES */
+.vista-previa{
+  display:flex;
+  gap:2rem;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.marco-imagen{
+  text-align:center;
+  flex:1;
+  min-width:220px;
+}
+
+.marco-imagen img{
+  width:100%;
+  max-width:420px;
+  height:auto;
+  border-radius:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+.caption-fijo{
+  margin-top:.6rem;
+  font-size:.85rem;
+  color:#8e7c68;
+  font-style:italic;
+}
+
+footer{
+  margin-top:2.8rem;
+  text-align:center;
+  font-size:.8rem;
+  color:#b3a693;
+}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .hero{flex-direction:column;text-align:center}
+  .tagline{border:none;padding-left:0}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- PERFIL -->
+<div class="hero">
+  <div class="perfil-texto">
+    <h1>Yennifer Pico</h1>
+    <div class="tagline">Apasionada por la tecnología · Futura analista de sistemas</div>
+    <div class="descripcion">
+      Estudiante de Análisis y Diseño de Sistemas, curiosa por naturaleza y 
+        amante de la programación.
+      Bienvenido a mi rincón personal.
+    </div>
+  </div>
+
+  <div class="avatar-circle">
+    <img src="foto personal.jpeg" alt="Foto de perfil">
+  </div>
+</div>
+
+<!-- INFO -->
+<div class="info-cards">
+  <div class="card">
+    <h3>🌟 Sobre mí</h3>
+    <p>📍 Caracas, Venezuela<br>🎓 Estudiante de Análisis y Diseño de Sistemas<br>📚 Aprendiendo cada día cosas nuevas en el área de programación</p>
+  </div>
+  <div class="card">
+    <h3>🎯 Intereses</h3>
+    <ul>
+      <li>💻 Programación</li>
+      <li>🎨 Diseños</li>
+      <li>✍️ Escritura creativa</li>
+      <li>🚀 Front-end sencillo</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>📬 Contacto</h3>
+    <p>yenni_0719@hotmail.com<br>yenni09.work.gd<br>✨ Conectemos y creemos algo increíble ✨</p>
+  </div>
+</div>
+
+<!-- GALERÍA -->
+<div class="seccion-galeria">
+<h2>🐾 Mis hobbies</h2>
+
+<div class="botones-grid">
+  <button class="btn-imagen" data-target="panel1">🐱 Gatos</button>
+  <button class="btn-imagen" data-target="panel2">🍜 Comida</button>
+  <button class="btn-imagen" data-target="panel3">🌊 Naturaleza</button>
+</div>
+
+<!-- GATOS -->
+<div id="panel1" class="panel-imagen">
+  <div class="panel-header"><span>🐱 Momentos felinos</span><span>▼</span></div>
+  <div class="panel-contenido">
+    <div class="marco-imagen">
+      <img src="gatos.jpg" alt="Gatos">
+      <div class="caption-fijo">📷 Mi compañero favorito, siempre curioso y lleno de ternura. 🐾</div>
+    </div>
+  </div>
+</div>
+
+<!-- COMIDA -->
+<div id="panel2" class="panel-imagen">
+  <div class="panel-header"><span>🍜 Delicias culinarias</span><span>▼</span></div>
+  <div class="panel-contenido">
+    <div class="marco-imagen">
+      <img src="comida.jpg" alt="Comida">
+      <div class="caption-fijo">📷 Sabores que alegran el corazón, cada plato cuenta una historia. 🍲</div>
+    </div>
+  </div>
+</div>
+
+<!-- NATURALEZA -->
+<div id="panel3" class="panel-imagen">
+  <div class="panel-header"><span>🌺 Playa &amp; Flores</span><span>▼</span></div>
+  <div class="panel-contenido">
+    <div class="vista-previa">
+
+      <div class="marco-imagen">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Playa">
+        <div class="caption-fijo">📷 El sonido del mar y la tranquilidad de la playa. 🌊</div>
+      </div>
+
+      <div class="marco-imagen">
+        <img src="https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Flores">
+        <div class="caption-fijo">📷 La belleza natural de las flores, llenas de color y vida. 🌸</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>
+✨ 2026 Yennifer Pico - Logrando Metas Propuestas ✨
+</footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.panel-header').forEach(h=>{
+  h.addEventListener('click',()=>{
+    h.parentElement.classList.toggle('abierto')
+  })
+})
+
+document.querySelectorAll('.btn-imagen').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const p=document.getElementById(b.dataset.target)
+    if(p){
+      p.classList.add('abierto')
+      p.scrollIntoView({behavior:'smooth'})
+    }
+  })
+})
+</script>
+
+</body>
+</html>
