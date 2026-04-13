@@ -1,312 +1,323 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Yennifer Pico | Portfolio Personal</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  background-color:#f4f1ea;
-  font-family:'Segoe UI', Roboto, sans-serif;
-  line-height:1.5;
-  color:#2e2a28;
-  padding:2rem 1.5rem;
-}
-
-.container{
-  max-width:1100px;
-  margin:0 auto;
-  background:#fffef7;
-  border-radius:32px;
-  padding:2rem;
-  box-shadow:0 12px 28px rgba(0,0,0,.05);
-}
-
-/* PERFIL */
-.hero{
-  display:flex;
-  gap:2rem;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:2px solid #e9e2d4;
-  padding-bottom:2rem;
-  margin-bottom:2.5rem;
-}
-
-.perfil-texto{flex:2}
-
-.perfil-texto h1{
-  font-size:2.8rem;
-  font-weight:500;
-  margin-bottom:.5rem;
-}
-
-.tagline{
-  font-size:1.2rem;
-  color:#8b7a6b;
-  border-left:3px solid #cfc5b5;
-  padding-left:1rem;
-  margin-bottom:1rem;
-}
-
-.descripcion{color:#5a554e}
-
-.avatar-circle{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  overflow:hidden;
-  box-shadow:0 6px 12px rgba(0,0,0,.15);
-}
-
-.avatar-circle img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* INFO */
-.info-cards{
-  display:flex;
-  flex-wrap:wrap;
-  gap:1.2rem;
-  margin-bottom:2.5rem;
-}
-
-.card{
-  background:#faf8f2;
-  border-radius:24px;
-  padding:1.2rem 1.5rem;
-  border:1px solid #ece3d8;
-  flex:1;
-  min-width:180px;
-}
-
-.card h3{
-  font-size:1rem;
-  color:#b2a088;
-  margin-bottom:.5rem;
-}
-
-/* GALERÍA */
-.seccion-galeria h2{
-  font-size:1.7rem;
-  color:#4f4a42;
-  border-left:4px solid #cfc2b0;
-  padding-left:1rem;
-  margin-bottom:1rem;
-}
-
-.botones-grid{
-  display:flex;
-  gap:1rem;
-  flex-wrap:wrap;
-  margin-bottom:2rem;
-}
-
-.btn-imagen{
-  background:#e7e0d4;
-  border:none;
-  padding:.7rem 1.6rem;
-  border-radius:60px;
-  cursor:pointer;
-  font-size:1rem;
-}
-
-/* ACORDEÓN */
-.panel-imagen{
-  background:#fefcf6;
-  border:1px solid #ece1d2;
-  border-radius:28px;
-  margin-bottom:1rem;
-  overflow:hidden;
-}
-
-.panel-header{
-  background:#f5efe7;
-  padding:.8rem 1.5rem;
-  display:flex;
-  justify-content:space-between;
-  cursor:pointer;
-}
-
-.panel-contenido{
-  max-height:0;
-  overflow:hidden;
-  padding:0 1.5rem;
-  transition:max-height .4s ease, padding .3s ease;
-}
-
-.panel-imagen.abierto .panel-contenido{
-  max-height:700px;
-  padding:1.5rem;
-}
-
-/* IMÁGENES */
-.vista-previa{
-  display:flex;
-  gap:2rem;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
-.marco-imagen{
-  text-align:center;
-  flex:1;
-  min-width:220px;
-}
-
-.marco-imagen img{
-  width:100%;
-  max-width:420px;
-  height:auto;
-  border-radius:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,.12);
-}
-
-.caption-fijo{
-  margin-top:.6rem;
-  font-size:.85rem;
-  color:#8e7c68;
-  font-style:italic;
-}
-
-footer{
-  margin-top:2.8rem;
-  text-align:center;
-  font-size:.8rem;
-  color:#b3a693;
-}
-
-/* RESPONSIVE */
-@media(max-width:680px){
-  .hero{flex-direction:column;text-align:center}
-  .tagline{border:none;padding-left:0}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamento de Educación Física - UNEFA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --azul-profundo: #0A2F6C;
+            --azul-claro: #1E4A8F;
+            --blanco: #FFFFFF;
+            --blanco-humo: #F8F9FA;
+            --dorado: #D4AF37;
+            --dorado-oscuro: #B8960C;
+            --dorado-claro: #F3E5AB;
+            --texto-oscuro: #1E2A3A;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--blanco-humo) 0%, var(--blanco) 100%);
+            min-height: 100vh;
+            color: var(--texto-oscuro);
+        }
+        /* Header con imagen de fondo */
+        header {
+            background-image: url("unefa2.jpg");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: var(--blanco);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+        .logo-container, .titulo-principal { position: relative; z-index: 2; }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .logo-unefa {
+            width: 120px;
+            height: 120px;
+            background: var(--blanco);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 3px solid var(--dorado);
+        }
+        .logo-unefa img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .titulo-principal h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+            color: var(--blanco);
+        }
+        .titulo-principal h2 {
+            font-size: 1.5rem;
+            color: var(--dorado);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        /* Coordinación */
+        .coordinacion {
+            background: var(--blanco);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--dorado);
+        }
+        .coordinacion h3 {
+            color: var(--azul-profundo);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--dorado);
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.5rem;
+        }
+        .personal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .personal-card {
+            background: linear-gradient(135deg, var(--blanco) 0%, var(--blanco-humo) 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--dorado);
+            transition: transform 0.3s;
+        }
+        .personal-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .personal-card h4 { color: var(--azul-profundo); }
+        .personal-card .cargo { color: var(--dorado-oscuro); font-weight: bold; }
+        .personal-card .nombre { font-size: 1.3rem; font-weight: 600; margin-top: 0.5rem; }
+        /* Menú desplegable */
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .menu-deportivo { display: flex; flex-direction: column; gap: 1.5rem; }
+        .dropdown { width: 100%; }
+        .dropdown-button {
+            background: linear-gradient(135deg, var(--azul-profundo), var(--azul-claro));
+            color: white;
+            padding: 1.5rem 2rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .dropdown-button:hover { background: linear-gradient(135deg, var(--azul-claro), var(--azul-profundo)); color: var(--dorado); }
+        .dropdown-button::after { content: '▼'; transition: transform 0.3s; }
+        .dropdown.active .dropdown-button::after { transform: rotate(180deg); }
+        .dropdown-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            border: 3px solid var(--dorado);
+            animation: slideDown 0.3s;
+        }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .dropdown.active .dropdown-content { display: block; }
+        .lista-profesores {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .lista-profesores li {
+            background: var(--blanco-humo);
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 5px solid var(--dorado);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .lista-profesores li:hover { background: var(--azul-profundo); color: var(--dorado); transform: scale(1.05); }
+        .section-title {
+            color: var(--azul-profundo);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            border-bottom: 3px solid var(--dorado);
+            display: inline-block;
+        }
+        .especialidades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .especialidad-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        .especialidad-card:hover { transform: translateY(-8px); border-color: var(--dorado); }
+        .especialidad-imagen {
+            height: 220px;
+            background: linear-gradient(135deg, var(--azul-profundo), var(--azul-claro));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+        }
+        .especialidad-info { padding: 1.5rem; text-align: center; }
+        .especialidad-info h4 { color: var(--azul-profundo); margin-bottom: 1rem; }
+        .entrenador-label { font-weight: 600; }
+        .entrenador { color: var(--dorado-oscuro); font-weight: bold; font-size: 1.2rem; }
+        .preparador-card {
+            background: linear-gradient(135deg, var(--azul-profundo), var(--azul-claro));
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--dorado);
+        }
+        .preparador-card h4 { color: var(--dorado); font-size: 1.8rem; }
+        .nombre-preparador { font-size: 2.5rem; color: var(--dorado-claro); }
+        footer {
+            background: var(--azul-profundo);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 4px solid var(--dorado);
+        }
+        .icono-deportivo { font-size: 2.5rem; margin: 0 0.5rem; color: var(--dorado); }
+        @media (max-width: 768px) {
+            .logo-container { flex-direction: column; }
+            .titulo-principal h1 { font-size: 2rem; }
+            .dropdown-button { font-size: 1rem; padding: 1rem; }
+        }
+    </style>
 </head>
-
 <body>
-<div class="container">
+    <header>
+        <div class="logo-container">
+            <div class="logo-unefa">
+                <!-- Cambia el nombre del archivo por el correcto -->
+                <img src="Escudo unefa.svg" alt="Logo UNEFA">
+            </div>
+            <div class="titulo-principal">
+                <h1>UNEFA</h1>
+                <h2>Departamento de Educación Física</h2>
+            </div>
+        </div>
+    </header>
 
-<!-- PERFIL -->
-<div class="hero">
-  <div class="perfil-texto">
-    <h1>Yennifer Pico</h1>
-    <div class="tagline">Apasionada por la tecnología · Futura analista de sistemas</div>
-    <div class="descripcion">
-      Estudiante de Análisis y Diseño de Sistemas, curiosa por naturaleza y 
-        amante de la programación.
-      Bienvenido a mi rincón personal.
+    <section class="coordinacion">
+        <h3>⚽ Coordinación del Departamento ⚽</h3>
+        <div class="personal-grid">
+            <div class="personal-card"><h4>👤 Coordinador</h4><div class="cargo">Coordinador Académico</div><div class="nombre">Wilfredo Granado</div></div>
+            <div class="personal-card"><h4>👤 Asistente</h4><div class="cargo">Asistente de Coordinación</div><div class="nombre">Pegui Medina</div></div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="menu-deportivo">
+            <div class="dropdown">
+                <button class="dropdown-button" onclick="toggleDropdown(this)">Profesores de Educación Física</button>
+                <div class="dropdown-content">
+                    <ul class="lista-profesores">
+                        <li>Feliz Granado</li><li>Nakari Antune</li><li>Jesus Abello</li><li>Tony Herrera</li>
+                        <li>Oliver Amundarain</li><li>Armando Peña</li><li>Giovanni Brito</li><li>Sarwinhs Colina</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropdown-button" onclick="toggleDropdown(this)">Especialidades Deportivas</button>
+                <div class="dropdown-content">
+                    <h3 class="section-title">🏆 Deportes de Conjunto</h3>
+                    <div class="especialidades-grid">
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🏀</span></div><div class="especialidad-info"><h4>Baloncesto Masculino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Oscar Nieve</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🏀</span></div><div class="especialidad-info"><h4>Baloncesto Femenino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Francisco Bueno</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🏐</span></div><div class="especialidad-info"><h4>Voleibol Masculino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Richard Echeveri</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🏐</span></div><div class="especialidad-info"><h4>Voleibol Femenino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Francisco Domingue</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>⚽</span></div><div class="especialidad-info"><h4>Futsala Masculino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Estefani Flores</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>⚽</span></div><div class="especialidad-info"><h4>Futsala Femenino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Yefferson Balladares</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>⚾</span></div><div class="especialidad-info"><h4>Béisbol Five</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Yorvin Pulgar</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>⚾</span></div><div class="especialidad-info"><h4>Kikimbol</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Franklin Ferrer</div></div></div>
+                    </div>
+                    <h3 class="section-title">🥋 Artes Marciales</h3>
+                    <div class="especialidades-grid">
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Karate</h4><div class="entrenador">Cesar Landaeta</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Kenpo</h4><div class="entrenador">Domingo Blanco</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥊</span></div><div class="especialidad-info"><h4>MMA</h4><div class="entrenador">Raynier Noguera</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Jiu Jitsu</h4><div class="entrenador">Tukio Cruz</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Taekwondo</h4><div class="entrenador">Belifer Corro</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🤼</span></div><div class="especialidad-info"><h4>Lucha</h4><div class="entrenador">Mamerto Liendo</div></div></div>
+                    </div>
+                    <h3 class="section-title">🧠 Deportes Mentales</h3>
+                    <div class="especialidades-grid">
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>♟️</span></div><div class="especialidad-info"><h4>Ajedrez</h4><div class="entrenador">Leonardo Casares</div></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropdown-button" onclick="toggleDropdown(this)">Preparadores Físicos</button>
+                <div class="dropdown-content">
+                    <div class="preparador-card"><h4>💪 Preparador Físico Principal</h4><div class="nombre-preparador">Luis Moreno</div></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="avatar-circle">
-    <img src="foto personal.jpeg" alt="Foto de perfil">
-  </div>
-</div>
+    <footer>
+        <p><span class="icono-deportivo">🏆</span><span class="icono-deportivo">⚽</span><span class="icono-deportivo">🏀</span></p>
+        <p><strong>UNEFA - Universidad Nacional Experimental Politécnica de la Fuerza Armada</strong></p>
+        <p>Departamento de Educación Física - Excelencia Educativa y Deportiva</p>
+        <p>📧 Correo de contacto: <a href="mailto:departamento01unefacaracas@gmail.com" style="color: var(--dorado); text-decoration: none;">departamento01unefacaracas@gmail.com</a></p>
+        <p>&copy; 2026 - Todos los derechos reservados</p>
+    </footer>
 
-<!-- INFO -->
-<div class="info-cards">
-  <div class="card">
-    <h3>🌟 Sobre mí</h3>
-    <p>📍 Caracas, Venezuela<br>🎓 Estudiante de Análisis y Diseño de Sistemas<br>📚 Aprendiendo cada día cosas nuevas en el área de programación</p>
-  </div>
-  <div class="card">
-    <h3>🎯 Intereses</h3>
-    <ul>
-      <li>💻 Programación</li>
-      <li>🎨 Diseños</li>
-      <li>✍️ Escritura creativa</li>
-      <li>🚀 Front-end sencillo</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>📬 Contacto</h3>
-    <p>yenni_0719@hotmail.com<br>yenni09.work.gd<br>✨ Conectemos y creemos algo increíble ✨</p>
-  </div>
-</div>
-
-<!-- GALERÍA -->
-<div class="seccion-galeria">
-<h2>🐾 Mis hobbies</h2>
-
-<div class="botones-grid">
-  <button class="btn-imagen" data-target="panel1">🐱 Gatos</button>
-  <button class="btn-imagen" data-target="panel2">🍜 Comida</button>
-  <button class="btn-imagen" data-target="panel3">🌊 Naturaleza</button>
-</div>
-
-<!-- GATOS -->
-<div id="panel1" class="panel-imagen">
-  <div class="panel-header"><span>🐱 Momentos felinos</span><span>▼</span></div>
-  <div class="panel-contenido">
-    <div class="marco-imagen">
-      <img src="gatos.jpg" alt="Gatos">
-      <div class="caption-fijo">📷 Mi compañero favorito, siempre curioso y lleno de ternura. 🐾</div>
-    </div>
-  </div>
-</div>
-
-<!-- COMIDA -->
-<div id="panel2" class="panel-imagen">
-  <div class="panel-header"><span>🍜 Delicias culinarias</span><span>▼</span></div>
-  <div class="panel-contenido">
-    <div class="marco-imagen">
-      <img src="comida.jpg" alt="Comida">
-      <div class="caption-fijo">📷 Sabores que alegran el corazón, cada plato cuenta una historia. 🍲</div>
-    </div>
-  </div>
-</div>
-
-<!-- NATURALEZA -->
-<div id="panel3" class="panel-imagen">
-  <div class="panel-header"><span>🌺 Playa &amp; Flores</span><span>▼</span></div>
-  <div class="panel-contenido">
-    <div class="vista-previa">
-
-      <div class="marco-imagen">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Playa">
-        <div class="caption-fijo">📷 El sonido del mar y la tranquilidad de la playa. 🌊</div>
-      </div>
-
-      <div class="marco-imagen">
-        <img src="https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Flores">
-        <div class="caption-fijo">📷 La belleza natural de las flores, llenas de color y vida. 🌸</div>
-      </div>
-
-    </div>
-  </div>
-</div>
-</div>
-
-<footer>
-✨ 2026 Yennifer Pico - Logrando Metas Propuestas ✨
-</footer>
-
-</div>
-
-<script>
-document.querySelectorAll('.panel-header').forEach(h=>{
-  h.addEventListener('click',()=>{
-    h.parentElement.classList.toggle('abierto')
-  })
-})
-
-document.querySelectorAll('.btn-imagen').forEach(b=>{
-  b.addEventListener('click',()=>{
-    const p=document.getElementById(b.dataset.target)
-    if(p){
-      p.classList.add('abierto')
-      p.scrollIntoView({behavior:'smooth'})
-    }
-  })
-})
-</script>
-
+    <script>
+        function toggleDropdown(button) {
+            const dropdown = button.parentElement;
+            document.querySelectorAll('.dropdown').forEach(d => { if (d !== dropdown) d.classList.remove('active'); });
+            dropdown.classList.toggle('active');
+        }
+        window.onclick = function(e) {
+            if (!e.target.matches('.dropdown-button')) {
+                document.querySelectorAll('.dropdown').forEach(d => { if (!d.contains(e.target)) d.classList.remove('active'); });
+            }
+        }
+    </script>
 </body>
 </html>
