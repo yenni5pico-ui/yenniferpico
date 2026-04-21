@@ -22,7 +22,6 @@
             min-height: 100vh;
             color: var(--texto-oscuro);
         }
-        /* Header con imagen de fondo */
         header {
             background-image: url("unefa2.jpg");
             background-size: cover;
@@ -80,7 +79,6 @@
             color: var(--dorado);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        /* Coordinación */
         .coordinacion {
             background: var(--blanco);
             padding: 2rem;
@@ -117,7 +115,6 @@
         .personal-card h4 { color: var(--azul-profundo); }
         .personal-card .cargo { color: var(--dorado-oscuro); font-weight: bold; }
         .personal-card .nombre { font-size: 1.3rem; font-weight: 600; margin-top: 0.5rem; }
-        /* Menú desplegable */
         .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
         .menu-deportivo { display: flex; flex-direction: column; gap: 1.5rem; }
         .dropdown { width: 100%; }
@@ -166,6 +163,7 @@
             border-left: 5px solid var(--dorado);
             font-weight: 600;
             transition: all 0.3s;
+            cursor: pointer;
         }
         .lista-profesores li:hover { background: var(--azul-profundo); color: var(--dorado); transform: scale(1.05); }
         .section-title {
@@ -201,7 +199,17 @@
         .especialidad-info { padding: 1.5rem; text-align: center; }
         .especialidad-info h4 { color: var(--azul-profundo); margin-bottom: 1rem; }
         .entrenador-label { font-weight: 600; }
-        .entrenador { color: var(--dorado-oscuro); font-weight: bold; font-size: 1.2rem; }
+        .entrenador { 
+            color: var(--dorado-oscuro); 
+            font-weight: bold; 
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .entrenador:hover { background: var(--dorado-claro); }
         .preparador-card {
             background: linear-gradient(135deg, var(--azul-profundo), var(--azul-claro));
             color: white;
@@ -211,7 +219,179 @@
             border: 1px solid var(--dorado);
         }
         .preparador-card h4 { color: var(--dorado); font-size: 1.8rem; }
-        .nombre-preparador { font-size: 2.5rem; color: var(--dorado-claro); }
+        .nombre-preparador { 
+            font-size: 2.5rem; 
+            color: var(--dorado-claro);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .nombre-preparador:hover { transform: scale(1.05); text-shadow: 0 0 5px rgba(0,0,0,0.3); }
+        
+        /* Documentos */
+        .documentos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .documento-item {
+            background: var(--blanco-humo);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--dorado);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .documento-info {
+            flex: 1;
+        }
+        .documento-nombre {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--azul-profundo);
+        }
+        .documento-fecha {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .documento-desc {
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+        .btn-descargar, .btn-eliminar-doc {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .btn-descargar {
+            background: var(--azul-profundo);
+            color: white;
+        }
+        .btn-descargar:hover {
+            background: var(--azul-claro);
+        }
+        .btn-eliminar-doc {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-eliminar-doc:hover {
+            background: #c82333;
+        }
+        .btn-subir-doc {
+            background: var(--dorado-oscuro);
+            color: var(--azul-profundo);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.2s;
+        }
+        .btn-subir-doc:hover {
+            background: var(--dorado);
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-contenido {
+            background: white;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-top: 8px solid var(--dorado);
+        }
+        .modal-contenido h3 {
+            color: var(--azul-profundo);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        .modal-contenido label {
+            display: block;
+            margin: 1rem 0 0.3rem;
+            font-weight: bold;
+            color: var(--azul-profundo);
+        }
+        .modal-contenido input, .modal-contenido textarea, .modal-contenido p {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: #f9f9f9;
+        }
+        .modal-contenido textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .botones-modal {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+        .botones-modal button {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-guardar {
+            background: var(--azul-profundo);
+            color: white;
+        }
+        .btn-guardar:hover {
+            background: var(--azul-claro);
+        }
+        .btn-cerrar {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-cerrar:hover {
+            background: #5a6268;
+        }
+        .admin-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--azul-profundo);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: background 0.2s;
+        }
+        .admin-btn:hover {
+            background: var(--dorado-oscuro);
+            color: var(--azul-profundo);
+        }
         footer {
             background: var(--azul-profundo);
             color: white;
@@ -225,6 +405,8 @@
             .logo-container { flex-direction: column; }
             .titulo-principal h1 { font-size: 2rem; }
             .dropdown-button { font-size: 1rem; padding: 1rem; }
+            .modal-contenido { padding: 1.5rem; }
+            .documento-item { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -232,7 +414,6 @@
     <header>
         <div class="logo-container">
             <div class="logo-unefa">
-                <!-- Cambia el nombre del archivo por el correcto -->
                 <img src="Escudo unefa.svg" alt="Logo UNEFA">
             </div>
             <div class="titulo-principal">
@@ -243,10 +424,10 @@
     </header>
 
     <section class="coordinacion">
-        <h3>⚽ Coordinación del Departamento ⚽</h3>
+        <h3>🏀⚾🏐⚽ Coordinación del Departamento 🥋🥊🤼🥋</h3>
         <div class="personal-grid">
             <div class="personal-card"><h4>👤 Coordinador</h4><div class="cargo">Coordinador Académico</div><div class="nombre">Wilfredo Granado</div></div>
-            <div class="personal-card"><h4>👤 Asistente</h4><div class="cargo">Asistente de Coordinación</div><div class="nombre">Pegui Medina</div></div>
+            <div class="personal-card"><h4>👤 Asistente</h4><div class="cargo">Asistente de Coordinación</div><div class="nombre">Peggy Rosalyn Medina</div></div>
         </div>
     </section>
 
@@ -256,13 +437,13 @@
                 <button class="dropdown-button" onclick="toggleDropdown(this)">Profesores de Educación Física</button>
                 <div class="dropdown-content">
                     <ul class="lista-profesores">
-                        <li>Feliz Granado</li><li>Nakari Antune</li><li>Jesus Abello</li><li>Tony Herrera</li>
+                        <li>Feliz Abreu</li><li>Nakari Antune</li><li>Jesus Abello</li><li>Tony Herrera</li>
                         <li>Oliver Amundarain</li><li>Armando Peña</li><li>Giovanni Brito</li><li>Sarwinhs Colina</li>
                     </ul>
                 </div>
             </div>
             <div class="dropdown">
-                <button class="dropdown-button" onclick="toggleDropdown(this)">Especialidades Deportivas</button>
+                <button class="dropdown-button" onclick="toggleDropdown(this)">Disciplinas deportivas</button>
                 <div class="dropdown-content">
                     <h3 class="section-title">🏆 Deportes de Conjunto</h3>
                     <div class="especialidades-grid">
@@ -280,7 +461,7 @@
                         <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Karate</h4><div class="entrenador">Cesar Landaeta</div></div></div>
                         <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Kenpo</h4><div class="entrenador">Domingo Blanco</div></div></div>
                         <div class="especialidad-card"><div class="especialidad-imagen"><span>🥊</span></div><div class="especialidad-info"><h4>MMA</h4><div class="entrenador">Raynier Noguera</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Jiu Jitsu</h4><div class="entrenador">Tukio Cruz</div></div></div>
+                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Jiu Jitsu</h4><div class="entrenador">Tulio Cruz</div></div></div>
                         <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Taekwondo</h4><div class="entrenador">Belifer Corro</div></div></div>
                         <div class="especialidad-card"><div class="especialidad-imagen"><span>🤼</span></div><div class="especialidad-info"><h4>Lucha</h4><div class="entrenador">Mamerto Liendo</div></div></div>
                     </div>
@@ -296,6 +477,18 @@
                     <div class="preparador-card"><h4>💪 Preparador Físico Principal</h4><div class="nombre-preparador">Luis Moreno</div></div>
                 </div>
             </div>
+            <div class="dropdown">
+                <button class="dropdown-button" onclick="toggleDropdown(this)">📄 Documentos</button>
+                <div class="dropdown-content" id="documentosContent">
+                    <h3 class="section-title">📚 Material de interés para estudiantes</h3>
+                    <div id="listaDocumentos" class="documentos-lista">
+                        <p style="color: gray;">No hay documentos disponibles.</p>
+                    </div>
+                    <div id="adminDocControls" style="display: none;">
+                        <button class="btn-subir-doc" id="btnAbrirModalDocumento">➕ Subir nuevo documento</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -303,21 +496,364 @@
         <p><span class="icono-deportivo">🏆</span><span class="icono-deportivo">⚽</span><span class="icono-deportivo">🏀</span></p>
         <p><strong>UNEFA - Universidad Nacional Experimental Politécnica de la Fuerza Armada</strong></p>
         <p>Departamento de Educación Física - Excelencia Educativa y Deportiva</p>
-        <p>📧 Correo de contacto: <a href="mailto:departamento01unefacaracas@gmail.com" style="color: var(--dorado); text-decoration: none;">departamento01unefacaracas@gmail.com</a></p>
+        <p>📧 Correo de contacto: <a href="mailto:deporte01unefacaracas@gmail.com" style="color: var(--dorado); text-decoration: none;">departamento01unefacaracas@gmail.com</a></p>
         <p>&copy; 2026 - Todos los derechos reservados</p>
     </footer>
 
+    <button id="adminBtn" class="admin-btn">🔑 Acceso Administrador</button>
+
+    <!-- Modal para perfil (solo lectura o edición según admin) -->
+    <div id="modalInfo" class="modal-overlay">
+        <div class="modal-contenido" id="modalContenidoDinamico">
+            <!-- Se llena dinámicamente -->
+        </div>
+    </div>
+
+    <!-- Modal para subir documentos (solo admin) -->
+    <div id="modalDocumento" class="modal-overlay modal-documento">
+        <div class="modal-contenido">
+            <h3>📎 Subir Documento</h3>
+            <label>Nombre del documento *:</label>
+            <input type="text" id="docNombre" placeholder="Ej: Planilla de inscripción deportiva">
+            <label>Descripción (opcional):</label>
+            <textarea id="docDescripcion" placeholder="Breve descripción del contenido..."></textarea>
+            <label>Archivo * (PDF, imagen, Word, etc. - máximo 5 MB):</label>
+            <input type="file" id="docArchivo" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt">
+            <div id="errorArchivo" class="mensaje-error"></div>
+            <div class="botones-modal">
+                <button class="btn-guardar" id="btnGuardarDocumento">💾 Guardar documento</button>
+                <button class="btn-cerrar" id="btnCerrarModalDoc">❌ Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // -------------------- CONFIGURACIÓN ADMIN --------------------
+        let isAdmin = false;
+        const ADMIN_PASSWORD = "admin123";
+
+        function setAdminMode(adminStatus) {
+            isAdmin = adminStatus;
+            const adminBtn = document.getElementById("adminBtn");
+            const adminDocControls = document.getElementById("adminDocControls");
+            if (isAdmin) {
+                adminBtn.textContent = "👑 Modo Admin Activo";
+                adminBtn.style.background = "var(--dorado-oscuro)";
+                adminBtn.style.color = "var(--azul-profundo)";
+                if (adminDocControls) adminDocControls.style.display = "block";
+                alert("✅ Modo administrador activado. Ahora puedes editar perfiles y gestionar documentos.");
+            } else {
+                adminBtn.textContent = "🔑 Acceso Administrador";
+                adminBtn.style.background = "var(--azul-profundo)";
+                adminBtn.style.color = "white";
+                if (adminDocControls) adminDocControls.style.display = "none";
+            }
+            renderizarDocumentos();
+        }
+
+        function loginAdmin() {
+            const pwd = prompt("Ingrese la contraseña de administrador:");
+            if (pwd === ADMIN_PASSWORD) {
+                setAdminMode(true);
+            } else if (pwd !== null) {
+                alert("Contraseña incorrecta.");
+            }
+        }
+
+        // -------------------- DATOS PERSISTENTES (profesionales) --------------------
+        let profesionalesData = {};
+
+        function cargarDatosIniciales() {
+            const defaultData = {
+                "Feliz Abreu": { nombre: "Feliz Abreu", cargo: "Profesor de Educación Física", especialidad: "Acondicionamiento Físico", experiencia: "10 años", email: "feliz.abreu@unefa.edu.ve", horario: "" },
+                "Nakari Antune": { nombre: "Nakari Antune", cargo: "Profesora de Educación Física", especialidad: "Gimnasia y Recreación", experiencia: "7 años", email: "nakari.antune@unefa.edu.ve", horario: "" },
+                "Jesus Abello": { nombre: "Jesus Abello", cargo: "Profesor de Educación Física", especialidad: "Entrenamiento Deportivo", experiencia: "12 años", email: "jesus.abello@unefa.edu.ve", horario: "" },
+                "Tony Herrera": { nombre: "Tony Herrera", cargo: "Profesor de Educación Física", especialidad: "Fisiología del Ejercicio", experiencia: "9 años", email: "tony.herrera@unefa.edu.ve", horario: "" },
+                "Oliver Amundarain": { nombre: "Oliver Amundarain", cargo: "Profesor de Educación Física", especialidad: "Deportes de Contacto", experiencia: "11 años", email: "oliver.amundarain@unefa.edu.ve", horario: "" },
+                "Armando Peña": { nombre: "Armando Peña", cargo: "Profesor de Educación Física", especialidad: "Baloncesto", experiencia: "15 años", email: "armando.pena@unefa.edu.ve", horario: "" },
+                "Giovanni Brito": { nombre: "Giovanni Brito", cargo: "Profesor de Educación Física", especialidad: "Fútbol Sala", experiencia: "8 años", email: "giovanni.brito@unefa.edu.ve", horario: "" },
+                "Sarwinhs Colina": { nombre: "Sarwinhs Colina", cargo: "Profesor de Educación Física", especialidad: "Voleibol", experiencia: "6 años", email: "sarwinhs.colina@unefa.edu.ve", horario: "" },
+                "Oscar Nieve": { nombre: "Oscar Nieve", cargo: "Entrenador de Baloncesto Masculino", especialidad: "Baloncesto", experiencia: "14 años", email: "oscar.nieve@unefa.edu.ve", horario: "" },
+                "Francisco Bueno": { nombre: "Francisco Bueno", cargo: "Entrenador de Baloncesto Femenino", especialidad: "Baloncesto", experiencia: "10 años", email: "francisco.bueno@unefa.edu.ve", horario: "" },
+                "Richard Echeveri": { nombre: "Richard Echeveri", cargo: "Entrenador de Voleibol Masculino", especialidad: "Voleibol", experiencia: "12 años", email: "richard.echeveri@unefa.edu.ve", horario: "" },
+                "Francisco Domingue": { nombre: "Francisco Domingue", cargo: "Entrenador de Voleibol Femenino", especialidad: "Voleibol", experiencia: "8 años", email: "francisco.domingue@unefa.edu.ve", horario: "" },
+                "Estefani Flores": { nombre: "Estefani Flores", cargo: "Entrenadora de Futsala Masculino", especialidad: "Fútbol Sala", experiencia: "6 años", email: "estefani.flores@unefa.edu.ve", horario: "" },
+                "Yefferson Balladares": { nombre: "Yefferson Balladares", cargo: "Entrenador de Futsala Femenino", especialidad: "Fútbol Sala", experiencia: "7 años", email: "yefferson.balladares@unefa.edu.ve", horario: "" },
+                "Yorvin Pulgar": { nombre: "Yorvin Pulgar", cargo: "Entrenador de Béisbol Five", especialidad: "Béisbol", experiencia: "9 años", email: "yorvin.pulgar@unefa.edu.ve", horario: "" },
+                "Franklin Ferrer": { nombre: "Franklin Ferrer", cargo: "Entrenador de Kikimbol", especialidad: "Kikimbol", experiencia: "11 años", email: "franklin.ferrer@unefa.edu.ve", horario: "" },
+                "Cesar Landaeta": { nombre: "Cesar Landaeta", cargo: "Entrenador de Karate", especialidad: "Karate", experiencia: "16 años", email: "cesar.landaeta@unefa.edu.ve", horario: "" },
+                "Domingo Blanco": { nombre: "Domingo Blanco", cargo: "Entrenador de Kenpo", especialidad: "Kenpo", experiencia: "13 años", email: "domingo.blanco@unefa.edu.ve", horario: "" },
+                "Raynier Noguera": { nombre: "Raynier Noguera", cargo: "Entrenador de MMA", especialidad: "Artes Marciales Mixtas", experiencia: "8 años", email: "raynier.noguera@unefa.edu.ve", horario: "" },
+                "Tulio Cruz": { nombre: "Tulio Cruz", cargo: "Entrenador de Jiu Jitsu", especialidad: "Jiu Jitsu", experiencia: "10 años", email: "tulio.cruz@unefa.edu.ve", horario: "" },
+                "Belifer Corro": { nombre: "Belifer Corro", cargo: "Entrenador de Taekwondo", especialidad: "Taekwondo", experiencia: "12 años", email: "belifer.corro@unefa.edu.ve", horario: "" },
+                "Mamerto Liendo": { nombre: "Mamerto Liendo", cargo: "Entrenador de Lucha", especialidad: "Lucha Olímpica", experiencia: "15 años", email: "mamerto.liendo@unefa.edu.ve", horario: "" },
+                "Leonardo Casares": { nombre: "Leonardo Casares", cargo: "Entrenador de Ajedrez", especialidad: "Ajedrez", experiencia: "20 años", email: "leonardo.casares@unefa.edu.ve", horario: "" },
+                "Luis Moreno": { nombre: "Luis Moreno", cargo: "Preparador Físico Principal", especialidad: "Acondicionamiento Físico de Alto Rendimiento", experiencia: "18 años", email: "luis.moreno@unefa.edu.ve", horario: "" }
+            };
+            const guardado = localStorage.getItem("profesionalesData");
+            if (guardado) {
+                profesionalesData = JSON.parse(guardado);
+                for (let nombre in profesionalesData) {
+                    if (profesionalesData[nombre].horario === undefined) profesionalesData[nombre].horario = "";
+                }
+            } else {
+                profesionalesData = defaultData;
+                localStorage.setItem("profesionalesData", JSON.stringify(profesionalesData));
+            }
+        }
+
+        function guardarDatosLocal() {
+            localStorage.setItem("profesionalesData", JSON.stringify(profesionalesData));
+        }
+
+        function actualizarPersona(nombre, nuevosDatos) {
+            if (profesionalesData[nombre]) {
+                profesionalesData[nombre] = { ...profesionalesData[nombre], ...nuevosDatos };
+            } else {
+                profesionalesData[nombre] = nuevosDatos;
+            }
+            guardarDatosLocal();
+        }
+
+        function obtenerDatosPersona(nombre) {
+            if (profesionalesData[nombre]) return profesionalesData[nombre];
+            const nuevos = {
+                nombre: nombre,
+                cargo: "Profesional",
+                especialidad: "Sin especificar",
+                experiencia: "No registrada",
+                email: "",
+                horario: ""
+            };
+            profesionalesData[nombre] = nuevos;
+            guardarDatosLocal();
+            return nuevos;
+        }
+
+        // ---------- MODAL PERFIL (sin logros) ----------
+        const modalProf = document.getElementById("modalInfo");
+        const modalContenido = document.getElementById("modalContenidoDinamico");
+        let currentPersonaNombre = "";
+
+        function mostrarModalPerfil(nombre) {
+            currentPersonaNombre = nombre;
+            const data = obtenerDatosPersona(nombre);
+            if (isAdmin) {
+                // Modal editable (sin logros)
+                modalContenido.innerHTML = `
+                    <h3>✏️ Editar Perfil Profesional</h3>
+                    <label>Nombre completo:</label>
+                    <input type="text" id="editNombre" value="${escapeHtml(data.nombre)}">
+                    <label>Cargo / Rol:</label>
+                    <input type="text" id="editCargo" value="${escapeHtml(data.cargo)}">
+                    <label>Especialidad / Área:</label>
+                    <input type="text" id="editEspecialidad" value="${escapeHtml(data.especialidad)}">
+                    <label>Años de experiencia:</label>
+                    <input type="text" id="editExperiencia" value="${escapeHtml(data.experiencia)}">
+                    <label>Correo de contacto:</label>
+                    <input type="email" id="editEmail" value="${escapeHtml(data.email)}">
+                    <div id="horarioContainer">
+                        <label>📅 Horario de clases (solo administradores):</label>
+                        <textarea id="editHorario" rows="3">${escapeHtml(data.horario || '')}</textarea>
+                    </div>
+                    <div class="botones-modal">
+                        <button class="btn-guardar" id="btnGuardarModal">💾 Guardar cambios</button>
+                        <button class="btn-cerrar" id="btnCerrarModal">❌ Cerrar</button>
+                    </div>
+                `;
+                document.getElementById("btnGuardarModal").addEventListener("click", guardarPerfilAdmin);
+                document.getElementById("btnCerrarModal").addEventListener("click", cerrarModalProf);
+            } else {
+                // Modal solo lectura (sin logros)
+                modalContenido.innerHTML = `
+                    <h3>👤 Información del Profesor</h3>
+                    <label>Nombre completo:</label>
+                    <p><strong>${escapeHtml(data.nombre)}</strong></p>
+                    <label>Cargo / Rol:</label>
+                    <p>${escapeHtml(data.cargo)}</p>
+                    <label>Especialidad / Área:</label>
+                    <p>${escapeHtml(data.especialidad)}</p>
+                    <label>Años de experiencia:</label>
+                    <p>${escapeHtml(data.experiencia)}</p>
+                    <label>Correo de contacto:</label>
+                    <p>${escapeHtml(data.email)}</p>
+                    <div class="botones-modal">
+                        <button class="btn-cerrar" id="btnCerrarModal">❌ Cerrar</button>
+                    </div>
+                `;
+                document.getElementById("btnCerrarModal").addEventListener("click", cerrarModalProf);
+            }
+            modalProf.style.display = "flex";
+        }
+
+        function guardarPerfilAdmin() {
+            if (!currentPersonaNombre) return;
+            const nuevosDatos = {
+                nombre: document.getElementById("editNombre").value,
+                cargo: document.getElementById("editCargo").value,
+                especialidad: document.getElementById("editEspecialidad").value,
+                experiencia: document.getElementById("editExperiencia").value,
+                email: document.getElementById("editEmail").value,
+                horario: document.getElementById("editHorario").value
+            };
+            actualizarPersona(currentPersonaNombre, nuevosDatos);
+            cerrarModalProf();
+            alert("✅ Perfil actualizado correctamente.");
+        }
+
+        function cerrarModalProf() {
+            modalProf.style.display = "none";
+        }
+
+        // ---------- GESTIÓN DE DOCUMENTOS ----------
+        let documentos = [];
+
+        function cargarDocumentos() {
+            const guardado = localStorage.getItem("documentosEstudiantiles");
+            if (guardado) {
+                documentos = JSON.parse(guardado);
+            } else {
+                documentos = [];
+                localStorage.setItem("documentosEstudiantiles", JSON.stringify(documentos));
+            }
+            renderizarDocumentos();
+        }
+
+        function guardarDocumentosLocal() {
+            localStorage.setItem("documentosEstudiantiles", JSON.stringify(documentos));
+        }
+
+        function renderizarDocumentos() {
+            const contenedor = document.getElementById("listaDocumentos");
+            if (!contenedor) return;
+            if (documentos.length === 0) {
+                contenedor.innerHTML = '<p style="color: gray;">No hay documentos disponibles.</p>';
+                return;
+            }
+            contenedor.innerHTML = "";
+            documentos.forEach(doc => {
+                const div = document.createElement("div");
+                div.className = "documento-item";
+                let acciones = `<button class="btn-descargar" data-id="${doc.id}">⬇️ Descargar</button>`;
+                if (isAdmin) {
+                    acciones += `<button class="btn-eliminar-doc" data-id="${doc.id}">🗑️ Eliminar</button>`;
+                }
+                div.innerHTML = `
+                    <div class="documento-info">
+                        <div class="documento-nombre">📄 ${escapeHtml(doc.nombre)}</div>
+                        <div class="documento-fecha">📅 ${escapeHtml(doc.fecha)}</div>
+                        ${doc.descripcion ? `<div class="documento-desc">📝 ${escapeHtml(doc.descripcion)}</div>` : ''}
+                        <div class="documento-tamaño">📎 ${formatFileSize(doc.tamaño)}</div>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        ${acciones}
+                    </div>
+                `;
+                contenedor.appendChild(div);
+            });
+            // Descargar
+            document.querySelectorAll('.btn-descargar').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    const doc = documentos.find(d => d.id === id);
+                    if (doc && doc.dataURL) {
+                        const link = document.createElement('a');
+                        link.href = doc.dataURL;
+                        link.download = doc.nombre;
+                        link.click();
+                    } else {
+                        alert("Archivo no disponible.");
+                    }
+                });
+            });
+            if (isAdmin) {
+                document.querySelectorAll('.btn-eliminar-doc').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        if (confirm("¿Eliminar este documento?")) {
+                            documentos = documentos.filter(d => d.id !== id);
+                            guardarDocumentosLocal();
+                            renderizarDocumentos();
+                            alert("Documento eliminado.");
+                        }
+                    });
+                });
+            }
+        }
+
+        function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+        function formatFileSize(bytes) { if (bytes === 0) return "0 Bytes"; const k = 1024; const sizes = ["Bytes", "KB", "MB"]; const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]; }
+
+        const modalDoc = document.getElementById("modalDocumento");
+        const btnAbrirDoc = document.getElementById("btnAbrirModalDocumento");
+        const btnGuardarDoc = document.getElementById("btnGuardarDocumento");
+        const btnCerrarDoc = document.getElementById("btnCerrarModalDoc");
+        const inputNombre = document.getElementById("docNombre");
+        const inputDesc = document.getElementById("docDescripcion");
+        const inputArchivo = document.getElementById("docArchivo");
+        const errorSpan = document.getElementById("errorArchivo");
+
+        function abrirModalDocumento() { inputNombre.value = ""; inputDesc.value = ""; inputArchivo.value = ""; errorSpan.innerText = ""; modalDoc.style.display = "flex"; }
+        function cerrarModalDocumento() { modalDoc.style.display = "none"; }
+        function guardarDocumento() {
+            if (!isAdmin) { alert("No tienes permisos."); return; }
+            const nombre = inputNombre.value.trim();
+            const descripcion = inputDesc.value.trim();
+            const archivo = inputArchivo.files[0];
+            if (!nombre) { errorSpan.innerText = "Nombre obligatorio."; return; }
+            if (!archivo) { errorSpan.innerText = "Seleccione un archivo."; return; }
+            const maxSize = 5 * 1024 * 1024;
+            if (archivo.size > maxSize) { errorSpan.innerText = "Máximo 5 MB."; return; }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const dataURL = e.target.result;
+                const nuevoDoc = { id: Date.now(), nombre: nombre, descripcion: descripcion, fecha: new Date().toLocaleString(), dataURL: dataURL, tipo: archivo.type, tamaño: archivo.size };
+                documentos.push(nuevoDoc);
+                guardarDocumentosLocal();
+                renderizarDocumentos();
+                cerrarModalDocumento();
+                alert(`✅ Documento "${nombre}" guardado.`);
+            };
+            reader.onerror = function() { errorSpan.innerText = "Error al leer archivo."; };
+            reader.readAsDataURL(archivo);
+        }
+
+        // ---------- EVENTOS CLICK ----------
+        function handleClickPersona(e) {
+            e.stopPropagation();
+            const nombre = this.innerText.trim();
+            mostrarModalPerfil(nombre);
+        }
+
+        function asignarEventosClick() {
+            document.querySelectorAll('.lista-profesores li, .entrenador, .nombre-preparador').forEach(el => {
+                el.removeEventListener('click', handleClickPersona);
+                el.addEventListener('click', handleClickPersona);
+            });
+        }
+
+        // Inicialización
+        function init() {
+            cargarDatosIniciales();
+            asignarEventosClick();
+            cargarDocumentos();
+            document.getElementById("adminBtn").addEventListener("click", loginAdmin);
+            btnAbrirDoc.addEventListener("click", abrirModalDocumento);
+            btnGuardarDoc.addEventListener("click", guardarDocumento);
+            btnCerrarDoc.addEventListener("click", cerrarModalDocumento);
+            modalDoc.addEventListener("click", function(e) { if (e.target === modalDoc) cerrarModalDocumento(); });
+            modalProf.addEventListener("click", function(e) { if (e.target === modalProf) cerrarModalProf(); });
+            setAdminMode(false);
+        }
+
         function toggleDropdown(button) {
             const dropdown = button.parentElement;
             document.querySelectorAll('.dropdown').forEach(d => { if (d !== dropdown) d.classList.remove('active'); });
             dropdown.classList.toggle('active');
         }
-        window.onclick = function(e) {
-            if (!e.target.matches('.dropdown-button')) {
-                document.querySelectorAll('.dropdown').forEach(d => { if (!d.contains(e.target)) d.classList.remove('active'); });
-            }
-        }
+        window.onclick = function(e) { if (!e.target.matches('.dropdown-button')) { document.querySelectorAll('.dropdown').forEach(d => { if (!d.contains(e.target)) d.classList.remove('active'); }); } }
+        window.toggleDropdown = toggleDropdown;
+        init();
     </script>
 </body>
 </html>
