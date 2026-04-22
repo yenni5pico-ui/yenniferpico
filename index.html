@@ -114,7 +114,20 @@
         .personal-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .personal-card h4 { color: var(--azul-profundo); }
         .personal-card .cargo { color: var(--dorado-oscuro); font-weight: bold; }
-        .personal-card .nombre { font-size: 1.3rem; font-weight: 600; margin-top: 0.5rem; }
+        .personal-card .nombre { 
+            font-size: 1.3rem; 
+            font-weight: 600; 
+            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+        }
+        .personal-card .nombre:hover {
+            background-color: var(--dorado-claro);
+            color: var(--azul-profundo);
+        }
         .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
         .menu-deportivo { display: flex; flex-direction: column; gap: 1.5rem; }
         .dropdown { width: 100%; }
@@ -400,13 +413,34 @@
             margin-top: 3rem;
             border-top: 4px solid var(--dorado);
         }
-        .icono-deportivo { font-size: 2.5rem; margin: 0 0.5rem; color: var(--dorado); }
+        .icono-deportivo { 
+            font-size: 2.5rem; 
+            margin: 0 0.5rem; 
+            color: var(--dorado);
+            display: inline-block;
+            vertical-align: middle;
+        }
+        /* Logo estilo emoji: pequeño, en línea, sin bordes ni efectos de botón */
+        .logo-emoji {
+            height: 2.2rem;
+            width: auto;
+            vertical-align: middle;
+            display: inline-block;
+            margin: 0 0.5rem;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+            transition: none;
+            cursor: default;
+            border: none;
+            background: transparent;
+        }
         @media (max-width: 768px) {
             .logo-container { flex-direction: column; }
             .titulo-principal h1 { font-size: 2rem; }
             .dropdown-button { font-size: 1rem; padding: 1rem; }
             .modal-contenido { padding: 1.5rem; }
             .documento-item { flex-direction: column; align-items: flex-start; }
+            .logo-emoji { height: 1.8rem; }
+            .icono-deportivo { font-size: 2rem; }
         }
     </style>
 </head>
@@ -414,7 +448,8 @@
     <header>
         <div class="logo-container">
             <div class="logo-unefa">
-                <img src="Escudo unefa.svg" alt="Logo UNEFA">
+                <!-- Cambio: ahora usa la imagen "logo E.f.jpeg" en lugar del escudo anterior -->
+                <img src="logo E.f.jpeg" alt="Logo Coordinación Deporte UNEFA">
             </div>
             <div class="titulo-principal">
                 <h1>UNEFA</h1>
@@ -426,8 +461,16 @@
     <section class="coordinacion">
         <h3>🏀⚾🏐⚽ Coordinación del Departamento 🥋🥊🤼🥋</h3>
         <div class="personal-grid">
-            <div class="personal-card"><h4>👤 Coordinador</h4><div class="cargo">Coordinador Académico</div><div class="nombre">Wilfredo Granado</div></div>
-            <div class="personal-card"><h4>👤 Asistente</h4><div class="cargo">Asistente de Coordinación</div><div class="nombre">Peggy Rosalyn Medina</div></div>
+            <div class="personal-card">
+                <h4>👤 Coordinador</h4>
+                <div class="cargo">Coordinador Académico</div>
+                <div class="nombre">Wilfredo Granado</div>
+            </div>
+            <div class="personal-card">
+                <h4>👤 Asistente</h4>
+                <div class="cargo">Asistente de Coordinación</div>
+                <div class="nombre">Peggy Rosalyn Medina</div>
+            </div>
         </div>
     </section>
 
@@ -437,7 +480,7 @@
                 <button class="dropdown-button" onclick="toggleDropdown(this)">Profesores de Educación Física</button>
                 <div class="dropdown-content">
                     <ul class="lista-profesores">
-                        <li>Feliz Abreu</li><li>Nakari Antune</li><li>Jesus Abello</li><li>Tony Herrera</li>
+                        <li>Felix Abreu</li><li>Nakari Antune</li><li>Jesus Abello</li><li>Tony Herrera</li>
                         <li>Oliver Amundarain</li><li>Armando Peña</li><li>Giovanni Brito</li><li>Sarwinhs Colina</li>
                     </ul>
                 </div>
@@ -493,23 +536,25 @@
     </div>
 
     <footer>
-        <p><span class="icono-deportivo">🏆</span><span class="icono-deportivo">⚽</span><span class="icono-deportivo">🏀</span></p>
+        <p>
+            <span class="icono-deportivo">🏆</span>
+            <img src="logo E.f.jpeg" alt="Logo Coordinación Deporte UNEFA" class="logo-emoji"
+                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%2040%22%3E%3Crect%20width%3D%22100%22%20height%3D%2240%22%20fill%3D%22%230A2F6C%22%2F%3E%3Ctext%20x%3D%225%22%20y%3D%2225%22%20fill%3D%22%23D4AF37%22%20font-size%3D%2210%22%3EUNEFA%20DEPORTE%3C%2Ftext%3E%3C%2Fsvg%3E';">
+        </p>
         <p><strong>UNEFA - Universidad Nacional Experimental Politécnica de la Fuerza Armada</strong></p>
         <p>Departamento de Educación Física - Excelencia Educativa y Deportiva</p>
-        <p>📧 Correo de contacto: <a href="mailto:deporte01unefacaracas@gmail.com" style="color: var(--dorado); text-decoration: none;">departamento01unefacaracas@gmail.com</a></p>
+        <p>📧 Correo de contacto: <a href="mailto:deporte01unefacaracas@gmail.com" style="color: var(--dorado); text-decoration: none;">deporte01unefacaracas@gmail.com</a></p>
         <p>&copy; 2026 - Todos los derechos reservados</p>
     </footer>
 
     <button id="adminBtn" class="admin-btn">🔑 Acceso Administrador</button>
 
-    <!-- Modal para perfil (solo lectura o edición según admin) -->
+    <!-- Modal para perfil -->
     <div id="modalInfo" class="modal-overlay">
-        <div class="modal-contenido" id="modalContenidoDinamico">
-            <!-- Se llena dinámicamente -->
-        </div>
+        <div class="modal-contenido" id="modalContenidoDinamico"></div>
     </div>
 
-    <!-- Modal para subir documentos (solo admin) -->
+    <!-- Modal para subir documentos -->
     <div id="modalDocumento" class="modal-overlay modal-documento">
         <div class="modal-contenido">
             <h3>📎 Subir Documento</h3>
@@ -565,7 +610,11 @@
 
         function cargarDatosIniciales() {
             const defaultData = {
-                "Feliz Abreu": { nombre: "Feliz Abreu", cargo: "Profesor de Educación Física", especialidad: "Acondicionamiento Físico", experiencia: "10 años", email: "feliz.abreu@unefa.edu.ve", horario: "" },
+                // Coordinación
+                "Wilfredo Granado": { nombre: "Wilfredo Granado", cargo: "Coordinador Académico", especialidad: "Gestión Deportiva y Educación Física", experiencia: "15 años", email: "wilfredo.granado@unefa.edu.ve", horario: "Lunes a Viernes 8:00 AM - 4:00 PM" },
+                "Peggy Rosalyn Medina": { nombre: "Peggy Rosalyn Medina", cargo: "Asistente de Coordinación", especialidad: "Administración Deportiva", experiencia: "8 años", email: "peggy.medina@unefa.edu.ve", horario: "Lunes a Viernes 8:00 AM - 2:00 PM" },
+                // Profesores
+                "Felix Abreu": { nombre: "Felix Abreu", cargo: "Profesor de Educación Física", especialidad: "Acondicionamiento Físico", experiencia: "10 años", email: "felix.abreu@unefa.edu.ve", horario: "" },
                 "Nakari Antune": { nombre: "Nakari Antune", cargo: "Profesora de Educación Física", especialidad: "Gimnasia y Recreación", experiencia: "7 años", email: "nakari.antune@unefa.edu.ve", horario: "" },
                 "Jesus Abello": { nombre: "Jesus Abello", cargo: "Profesor de Educación Física", especialidad: "Entrenamiento Deportivo", experiencia: "12 años", email: "jesus.abello@unefa.edu.ve", horario: "" },
                 "Tony Herrera": { nombre: "Tony Herrera", cargo: "Profesor de Educación Física", especialidad: "Fisiología del Ejercicio", experiencia: "9 años", email: "tony.herrera@unefa.edu.ve", horario: "" },
@@ -573,6 +622,7 @@
                 "Armando Peña": { nombre: "Armando Peña", cargo: "Profesor de Educación Física", especialidad: "Baloncesto", experiencia: "15 años", email: "armando.pena@unefa.edu.ve", horario: "" },
                 "Giovanni Brito": { nombre: "Giovanni Brito", cargo: "Profesor de Educación Física", especialidad: "Fútbol Sala", experiencia: "8 años", email: "giovanni.brito@unefa.edu.ve", horario: "" },
                 "Sarwinhs Colina": { nombre: "Sarwinhs Colina", cargo: "Profesor de Educación Física", especialidad: "Voleibol", experiencia: "6 años", email: "sarwinhs.colina@unefa.edu.ve", horario: "" },
+                // Entrenadores
                 "Oscar Nieve": { nombre: "Oscar Nieve", cargo: "Entrenador de Baloncesto Masculino", especialidad: "Baloncesto", experiencia: "14 años", email: "oscar.nieve@unefa.edu.ve", horario: "" },
                 "Francisco Bueno": { nombre: "Francisco Bueno", cargo: "Entrenador de Baloncesto Femenino", especialidad: "Baloncesto", experiencia: "10 años", email: "francisco.bueno@unefa.edu.ve", horario: "" },
                 "Richard Echeveri": { nombre: "Richard Echeveri", cargo: "Entrenador de Voleibol Masculino", especialidad: "Voleibol", experiencia: "12 años", email: "richard.echeveri@unefa.edu.ve", horario: "" },
@@ -630,7 +680,7 @@
             return nuevos;
         }
 
-        // ---------- MODAL PERFIL (sin logros) ----------
+        // ---------- MODAL PERFIL ----------
         const modalProf = document.getElementById("modalInfo");
         const modalContenido = document.getElementById("modalContenidoDinamico");
         let currentPersonaNombre = "";
@@ -639,7 +689,6 @@
             currentPersonaNombre = nombre;
             const data = obtenerDatosPersona(nombre);
             if (isAdmin) {
-                // Modal editable (sin logros)
                 modalContenido.innerHTML = `
                     <h3>✏️ Editar Perfil Profesional</h3>
                     <label>Nombre completo:</label>
@@ -664,7 +713,6 @@
                 document.getElementById("btnGuardarModal").addEventListener("click", guardarPerfilAdmin);
                 document.getElementById("btnCerrarModal").addEventListener("click", cerrarModalProf);
             } else {
-                // Modal solo lectura (sin logros)
                 modalContenido.innerHTML = `
                     <h3>👤 Información del Profesor</h3>
                     <label>Nombre completo:</label>
@@ -677,6 +725,7 @@
                     <p>${escapeHtml(data.experiencia)}</p>
                     <label>Correo de contacto:</label>
                     <p>${escapeHtml(data.email)}</p>
+                    ${data.horario ? `<label>📅 Horario:</label><p>${escapeHtml(data.horario)}</p>` : ''}
                     <div class="botones-modal">
                         <button class="btn-cerrar" id="btnCerrarModal">❌ Cerrar</button>
                     </div>
@@ -751,7 +800,6 @@
                 `;
                 contenedor.appendChild(div);
             });
-            // Descargar
             document.querySelectorAll('.btn-descargar').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const id = parseInt(btn.getAttribute('data-id'));
@@ -826,23 +874,28 @@
         }
 
         function asignarEventosClick() {
+            // Profesores de la lista, entrenadores y preparador
             document.querySelectorAll('.lista-profesores li, .entrenador, .nombre-preparador').forEach(el => {
+                el.removeEventListener('click', handleClickPersona);
+                el.addEventListener('click', handleClickPersona);
+            });
+            // Coordinador y asistente (dentro de .personal-card .nombre)
+            document.querySelectorAll('.personal-card .nombre').forEach(el => {
                 el.removeEventListener('click', handleClickPersona);
                 el.addEventListener('click', handleClickPersona);
             });
         }
 
-        // Inicialización
         function init() {
             cargarDatosIniciales();
             asignarEventosClick();
             cargarDocumentos();
             document.getElementById("adminBtn").addEventListener("click", loginAdmin);
-            btnAbrirDoc.addEventListener("click", abrirModalDocumento);
-            btnGuardarDoc.addEventListener("click", guardarDocumento);
-            btnCerrarDoc.addEventListener("click", cerrarModalDocumento);
-            modalDoc.addEventListener("click", function(e) { if (e.target === modalDoc) cerrarModalDocumento(); });
-            modalProf.addEventListener("click", function(e) { if (e.target === modalProf) cerrarModalProf(); });
+            if(btnAbrirDoc) btnAbrirDoc.addEventListener("click", abrirModalDocumento);
+            if(btnGuardarDoc) btnGuardarDoc.addEventListener("click", guardarDocumento);
+            if(btnCerrarDoc) btnCerrarDoc.addEventListener("click", cerrarModalDocumento);
+            if(modalDoc) modalDoc.addEventListener("click", function(e) { if (e.target === modalDoc) cerrarModalDocumento(); });
+            if(modalProf) modalProf.addEventListener("click", function(e) { if (e.target === modalProf) cerrarModalProf(); });
             setAdminMode(false);
         }
 
