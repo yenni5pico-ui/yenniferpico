@@ -198,6 +198,7 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
             transition: all 0.3s;
             border: 3px solid transparent;
+            cursor: pointer;
         }
         .especialidad-card:hover { transform: translateY(-8px); border-color: var(--dorado); }
         .especialidad-imagen {
@@ -210,7 +211,7 @@
             color: white;
         }
         .especialidad-info { padding: 1.5rem; text-align: center; }
-        .especialidad-info h4 { color: var(--azul-profundo); margin-bottom: 1rem; }
+        .especialidad-info h4 { color: var(--azul-profundo); margin-bottom: 0; }
         .entrenador-label { font-weight: 600; }
         .entrenador { 
             color: var(--dorado-oscuro); 
@@ -240,14 +241,31 @@
         }
         .nombre-preparador:hover { transform: scale(1.05); text-shadow: 0 0 5px rgba(0,0,0,0.3); }
         
-        /* Documentos */
-        .documentos-lista {
+        .lista-entrenadores {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .lista-entrenadores li {
+            background: var(--blanco-humo);
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 5px solid var(--dorado);
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .lista-entrenadores li:hover { background: var(--azul-profundo); color: var(--dorado); transform: scale(1.05); }
+        
+        .documentos-lista, .secom-lista {
             display: flex;
             flex-direction: column;
             gap: 1rem;
             margin-bottom: 2rem;
         }
-        .documento-item {
+        .documento-item, .secom-item {
             background: var(--blanco-humo);
             padding: 1rem;
             border-radius: 10px;
@@ -258,23 +276,36 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-        .documento-info {
+        .documento-info, .secom-info {
             flex: 1;
         }
-        .documento-nombre {
+        .documento-nombre, .secom-titulo {
             font-weight: bold;
             font-size: 1.1rem;
             color: var(--azul-profundo);
         }
-        .documento-fecha {
+        .documento-fecha, .secom-fecha {
             font-size: 0.8rem;
             color: #666;
         }
-        .documento-desc {
+        .documento-desc, .secom-texto {
             font-size: 0.9rem;
             margin-top: 0.3rem;
         }
-        .btn-descargar, .btn-eliminar-doc {
+        .secom-imagenes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .secom-imagenes img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .btn-descargar, .btn-eliminar-doc, .btn-editar-estudiante, .btn-eliminar-estudiante, .btn-editar-secom, .btn-eliminar-secom {
             padding: 0.5rem 1rem;
             border: none;
             border-radius: 6px;
@@ -289,14 +320,18 @@
         .btn-descargar:hover {
             background: var(--azul-claro);
         }
-        .btn-eliminar-doc {
+        .btn-eliminar-doc, .btn-eliminar-estudiante, .btn-eliminar-secom {
             background: #dc3545;
             color: white;
         }
-        .btn-eliminar-doc:hover {
+        .btn-eliminar-doc:hover, .btn-eliminar-estudiante:hover, .btn-eliminar-secom:hover {
             background: #c82333;
         }
-        .btn-subir-doc {
+        .btn-editar-estudiante, .btn-editar-secom {
+            background: var(--dorado-oscuro);
+            color: var(--azul-profundo);
+        }
+        .btn-subir-doc, .btn-agregar-estudiante, .btn-agregar-secom {
             background: var(--dorado-oscuro);
             color: var(--azul-profundo);
             padding: 0.8rem 1.5rem;
@@ -307,7 +342,7 @@
             margin-top: 1rem;
             transition: background 0.2s;
         }
-        .btn-subir-doc:hover {
+        .btn-subir-doc:hover, .btn-agregar-estudiante:hover, .btn-agregar-secom:hover {
             background: var(--dorado);
         }
         .modal-overlay {
@@ -324,13 +359,15 @@
         }
         .modal-contenido {
             background: white;
-            max-width: 500px;
+            max-width: 900px;
             width: 90%;
             border-radius: 20px;
             padding: 2rem;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border-top: 8px solid var(--dorado);
+            max-height: 85vh;
+            overflow-y: auto;
         }
         .modal-contenido h3 {
             color: var(--azul-profundo);
@@ -420,7 +457,6 @@
             display: inline-block;
             vertical-align: middle;
         }
-        /* Logo estilo emoji: pequeño, en línea, sin bordes ni efectos de botón */
         .logo-emoji {
             height: 2.2rem;
             width: auto;
@@ -433,14 +469,32 @@
             border: none;
             background: transparent;
         }
+        .tabla-estudiantes {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .tabla-estudiantes th, .tabla-estudiantes td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .tabla-estudiantes th {
+            background-color: var(--azul-profundo);
+            color: white;
+        }
+        .acciones-estudiante {
+            display: flex;
+            gap: 5px;
+        }
         @media (max-width: 768px) {
             .logo-container { flex-direction: column; }
             .titulo-principal h1 { font-size: 2rem; }
             .dropdown-button { font-size: 1rem; padding: 1rem; }
             .modal-contenido { padding: 1.5rem; }
-            .documento-item { flex-direction: column; align-items: flex-start; }
-            .logo-emoji { height: 1.8rem; }
-            .icono-deportivo { font-size: 2rem; }
+            .documento-item, .secom-item { flex-direction: column; align-items: flex-start; }
+            .tabla-estudiantes th, .tabla-estudiantes td { padding: 4px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -448,7 +502,6 @@
     <header>
         <div class="logo-container">
             <div class="logo-unefa">
-                <!-- Cambio: ahora usa la imagen "logo E.f.jpeg" en lugar del escudo anterior -->
                 <img src="logo E.f.jpeg" alt="Logo Coordinación Deporte UNEFA">
             </div>
             <div class="titulo-principal">
@@ -485,33 +538,19 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="dropdown">
+                <button class="dropdown-button" onclick="toggleDropdown(this)">🏅 Entrenadores Deportivos</button>
+                <div class="dropdown-content" id="entrenadoresContent">
+                    <h3 class="section-title">🏀⚾🏐⚽ Nuestros Entrenadores🥋🥊🤼🥋</h3>
+                    <ul class="lista-entrenadores" id="listaEntrenadoresDinamica"></ul>
+                </div>
+            </div>
+
             <div class="dropdown">
                 <button class="dropdown-button" onclick="toggleDropdown(this)">Disciplinas deportivas</button>
-                <div class="dropdown-content">
-                    <h3 class="section-title">🏆 Deportes de Conjunto</h3>
-                    <div class="especialidades-grid">
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🏀</span></div><div class="especialidad-info"><h4>Baloncesto Masculino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Oscar Nieve</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🏀</span></div><div class="especialidad-info"><h4>Baloncesto Femenino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Francisco Bueno</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🏐</span></div><div class="especialidad-info"><h4>Voleibol Masculino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Richard Echeveri</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🏐</span></div><div class="especialidad-info"><h4>Voleibol Femenino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Francisco Domingue</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>⚽</span></div><div class="especialidad-info"><h4>Futsala Masculino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Estefani Flores</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>⚽</span></div><div class="especialidad-info"><h4>Futsala Femenino</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Yefferson Balladares</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>⚾</span></div><div class="especialidad-info"><h4>Béisbol Five</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Yorvin Pulgar</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>⚾</span></div><div class="especialidad-info"><h4>Kikimbol</h4><div class="entrenador-label">Entrenador:</div><div class="entrenador">Franklin Ferrer</div></div></div>
-                    </div>
-                    <h3 class="section-title">🥋 Artes Marciales</h3>
-                    <div class="especialidades-grid">
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Karate</h4><div class="entrenador">Cesar Landaeta</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Kenpo</h4><div class="entrenador">Domingo Blanco</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥊</span></div><div class="especialidad-info"><h4>MMA</h4><div class="entrenador">Raynier Noguera</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Jiu Jitsu</h4><div class="entrenador">Tulio Cruz</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🥋</span></div><div class="especialidad-info"><h4>Taekwondo</h4><div class="entrenador">Belifer Corro</div></div></div>
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>🤼</span></div><div class="especialidad-info"><h4>Lucha</h4><div class="entrenador">Mamerto Liendo</div></div></div>
-                    </div>
-                    <h3 class="section-title">🧠 Deportes Mentales</h3>
-                    <div class="especialidades-grid">
-                        <div class="especialidad-card"><div class="especialidad-imagen"><span>♟️</span></div><div class="especialidad-info"><h4>Ajedrez</h4><div class="entrenador">Leonardo Casares</div></div></div>
-                    </div>
+                <div class="dropdown-content" id="disciplinasContent">
+                    <div id="disciplinasDinamicas"></div>
                 </div>
             </div>
             <div class="dropdown">
@@ -532,14 +571,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- SERCOM siempre visible, pero solo admin puede modificar -->
+            <div class="dropdown" id="secomDropdown">
+                <button class="dropdown-button" onclick="toggleDropdown(this)">📢 SERCOM </button>
+                <div class="dropdown-content" id="sercomContent">
+                    <div id="listaSecom" class="secom-lista">
+                        <p style="color: gray;">No hay comunicados aún.</p>
+                    </div>
+                    <div id="adminSecomControls" style="display: none;">
+                        <button class="btn-agregar-sercom" id="btnAbrirModalSercom">➕ Agregar nuevo comunicado</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
         <p>
             <span class="icono-deportivo">🏆</span>
-            <img src="logo E.f.jpeg" alt="Logo Coordinación Deporte UNEFA" class="logo-emoji"
-                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%2040%22%3E%3Crect%20width%3D%22100%22%20height%3D%2240%22%20fill%3D%22%230A2F6C%22%2F%3E%3Ctext%20x%3D%225%22%20y%3D%2225%22%20fill%3D%22%23D4AF37%22%20font-size%3D%2210%22%3EUNEFA%20DEPORTE%3C%2Ftext%3E%3C%2Fsvg%3E';">
+            <img src="logo E.f.jpeg" alt="Logo Coordinación Deporte UNEFA" class="logo-emoji">
         </p>
         <p><strong>UNEFA - Universidad Nacional Experimental Politécnica de la Fuerza Armada</strong></p>
         <p>Departamento de Educación Física - Excelencia Educativa y Deportiva</p>
@@ -552,6 +603,11 @@
     <!-- Modal para perfil -->
     <div id="modalInfo" class="modal-overlay">
         <div class="modal-contenido" id="modalContenidoDinamico"></div>
+    </div>
+
+    <!-- Modal para lista de estudiantes por disciplina -->
+    <div id="modalEstudiantes" class="modal-overlay">
+        <div class="modal-contenido" id="modalEstudiantesContenido"></div>
     </div>
 
     <!-- Modal para subir documentos -->
@@ -572,79 +628,298 @@
         </div>
     </div>
 
+    <!-- Modal para SERCOM (agregar/editar) -->
+    <div id="modalSercom" class="modal-overlay modal-sercom">
+        <div class="modal-contenido">
+            <h3 id="modalSercomTitle">📢 Agregar Comunicado</h3>
+            <label>Título *:</label>
+            <input type="text" id="sercomTitulo" placeholder="Título del comunicado">
+            <label>Texto / Información:</label>
+            <textarea id="sercomTexto" placeholder="Escribe aquí el contenido..."></textarea>
+            <label>Imágenes (puedes seleccionar varias):</label>
+            <input type="file" id="sercomImagenes" accept="image/*" multiple>
+            <div id="sercomImagenesPreview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
+            <div class="botones-modal">
+                <button class="btn-guardar" id="btnGuardarSerrcom">💾 Guardar</button>
+                <button class="btn-cerrar" id="btnCerrarModalSercom">❌ Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // -------------------- CONFIGURACIÓN ADMIN --------------------
+        // -------------------- DATOS GLOBALES --------------------
         let isAdmin = false;
         const ADMIN_PASSWORD = "admin123";
-
-        function setAdminMode(adminStatus) {
-            isAdmin = adminStatus;
-            const adminBtn = document.getElementById("adminBtn");
-            const adminDocControls = document.getElementById("adminDocControls");
-            if (isAdmin) {
-                adminBtn.textContent = "👑 Modo Admin Activo";
-                adminBtn.style.background = "var(--dorado-oscuro)";
-                adminBtn.style.color = "var(--azul-profundo)";
-                if (adminDocControls) adminDocControls.style.display = "block";
-                alert("✅ Modo administrador activado. Ahora puedes editar perfiles y gestionar documentos.");
-            } else {
-                adminBtn.textContent = "🔑 Acceso Administrador";
-                adminBtn.style.background = "var(--azul-profundo)";
-                adminBtn.style.color = "white";
-                if (adminDocControls) adminDocControls.style.display = "none";
-            }
-            renderizarDocumentos();
-        }
-
-        function loginAdmin() {
-            const pwd = prompt("Ingrese la contraseña de administrador:");
-            if (pwd === ADMIN_PASSWORD) {
-                setAdminMode(true);
-            } else if (pwd !== null) {
-                alert("Contraseña incorrecta.");
-            }
-        }
-
-        // -------------------- DATOS PERSISTENTES (profesionales) --------------------
         let profesionalesData = {};
+        let disciplinasRelaciones = [];
+        let entrenadoresUnicos = new Set();
+        let estudiantesPorDisciplina = {};
 
+        // -------------------- DATOS SECOM --------------------
+        let secomItems = [];  // cada item: { id, titulo, texto, imagenes (array de dataURL), fecha }
+
+        // -------------------- INICIALIZAR DISCIPLINAS --------------------
+        function inicializarDisciplinasDesdeDOM() {
+            const disciplinasRaw = [
+                { grupo: "Deportes de Conjunto", items: [
+                    { nombre: "Baloncesto Masculino", icono: "🏀", entrenador: "Oscar Nieve" },
+                    { nombre: "Baloncesto Femenino", icono: "🏀", entrenador: "Francisco Bueno" },
+                    { nombre: "Voleibol Masculino", icono: "🏐", entrenador: "Richard Echeveri" },
+                    { nombre: "Voleibol Femenino", icono: "🏐", entrenador: "Francisco Domingue" },
+                    { nombre: "Futsala Masculino", icono: "⚽", entrenador: "Estefani Flores" },
+                    { nombre: "Futsala Femenino", icono: "⚽", entrenador: "Yefferson Balladares" },
+                    { nombre: "Béisbol Five", icono: "⚾", entrenador: "Yorvin Pulgar" },
+                    { nombre: "Kikimbol", icono: "🔴", entrenador: "Franklin Ferrer" }
+                ] },
+                { grupo: "Artes Marciales", items: [
+                    { nombre: "Karate", icono: "🥋", entrenador: "Cesar Landaeta" },
+                    { nombre: "Kenpo", icono: "🥋", entrenador: "Domingo Blanco" },
+                    { nombre: "MMA", icono: "🥊", entrenador: "Raynier Noguera" },
+                    { nombre: "Jiu Jitsu", icono: "🥋", entrenador: "Tulio Cruz" },
+                    { nombre: "Taekwondo", icono: "🥋", entrenador: "Belifer Corro" },
+                    { nombre: "Lucha", icono: "🤼", entrenador: "Mamerto Liendo" }
+                ] },
+                { grupo: "Deportes Mentales", items: [
+                    { nombre: "Ajedrez", icono: "♟️", entrenador: "Leonardo Casares" }
+                ] }
+            ];
+            disciplinasRelaciones = [];
+            entrenadoresUnicos.clear();
+            for (let grupo of disciplinasRaw) {
+                for (let item of grupo.items) {
+                    disciplinasRelaciones.push({ nombre: item.nombre, entrenador: item.entrenador, icono: item.icono });
+                    entrenadoresUnicos.add(item.entrenador);
+                    if (!estudiantesPorDisciplina[item.nombre]) estudiantesPorDisciplina[item.nombre] = [];
+                }
+            }
+            guardarEstudiantesLocal();
+            renderizarDisciplinas();
+            renderizarListaEntrenadores();
+        }
+
+        function renderizarDisciplinas() {
+            const container = document.getElementById("disciplinasDinamicas");
+            if (!container) return;
+            const grupos = {
+                "Deportes de Conjunto": disciplinasRelaciones.slice(0,8),
+                "Artes Marciales": disciplinasRelaciones.slice(8,14),
+                "Deportes Mentales": disciplinasRelaciones.slice(14,15)
+            };
+            let html = "";
+            for (let [nombreGrupo, items] of Object.entries(grupos)) {
+                html += `<h3 class="section-title">🏆 ${nombreGrupo}</h3><div class="especialidades-grid">`;
+                for (let item of items) {
+                    html += `
+                        <div class="especialidad-card" data-disciplina="${escapeHtml(item.nombre)}">
+                            <div class="especialidad-imagen"><span>${item.icono}</span></div>
+                            <div class="especialidad-info">
+                                <h4>${escapeHtml(item.nombre)}</h4>
+                            </div>
+                        </div>
+                    `;
+                }
+                html += `</div>`;
+            }
+            container.innerHTML = html;
+            document.querySelectorAll('.especialidad-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const disciplina = card.getAttribute('data-disciplina');
+                    abrirModalEstudiantes(disciplina);
+                });
+            });
+        }
+
+        function renderizarListaEntrenadores() {
+            const lista = document.getElementById("listaEntrenadoresDinamica");
+            if (!lista) return;
+            lista.innerHTML = "";
+            Array.from(entrenadoresUnicos).sort().forEach(ent => {
+                const li = document.createElement("li");
+                if (ent === "Franklin Ferrer") {
+                    li.textContent = `${ent}`;
+                } else {
+                    li.textContent = ent;
+                }
+                li.addEventListener("click", () => mostrarDisciplinasDeEntrenador(ent));
+                lista.appendChild(li);
+            });
+        }
+
+        function mostrarDisciplinasDeEntrenador(entrenador) {
+            const disciplinas = disciplinasRelaciones.filter(d => d.entrenador === entrenador);
+            let listaHtml = '';
+            for (let d of disciplinas) {
+                listaHtml += `<li style="background:#f0f0f0; margin:8px 0; padding:10px; border-radius:8px;">
+                                Disciplina encargada al ${escapeHtml(d.nombre)} ${d.icono}
+                             </li>`;
+            }
+            const modal = document.getElementById("modalEstudiantes");
+            const contenido = document.getElementById("modalEstudiantesContenido");
+            contenido.innerHTML = `
+                <h3>🏋️ Entrenador: ${escapeHtml(entrenador)}</h3>
+                <ul style="list-style: none; padding: 0;">
+                    ${listaHtml}
+                </ul>
+                <div class="botones-modal"><button class="btn-cerrar" id="btnCerrarModalEst">Cerrar</button></div>
+            `;
+            modal.style.display = "flex";
+            document.getElementById("btnCerrarModalEst").addEventListener("click", () => modal.style.display = "none");
+        }
+
+        // -------------------- ESTUDIANTES --------------------
+        function cargarEstudiantesLocal() {
+            const guardado = localStorage.getItem("estudiantesPorDisciplina");
+            if (guardado) {
+                estudiantesPorDisciplina = JSON.parse(guardado);
+                for (let disc in estudiantesPorDisciplina) {
+                    estudiantesPorDisciplina[disc] = estudiantesPorDisciplina[disc].map(est => ({
+                        ...est,
+                        telefono: est.telefono || '',
+                        correo: est.correo || '',
+                        seccion: est.seccion || ''
+                    }));
+                }
+                guardarEstudiantesLocal();
+            } else {
+                estudiantesPorDisciplina = {};
+                disciplinasRelaciones.forEach(d => { if (!estudiantesPorDisciplina[d.nombre]) estudiantesPorDisciplina[d.nombre] = []; });
+                guardarEstudiantesLocal();
+            }
+        }
+
+        function guardarEstudiantesLocal() {
+            localStorage.setItem("estudiantesPorDisciplina", JSON.stringify(estudiantesPorDisciplina));
+        }
+
+        function abrirModalEstudiantes(disciplina) {
+            const estudiantes = estudiantesPorDisciplina[disciplina] || [];
+            const modal = document.getElementById("modalEstudiantes");
+            const contenedor = document.getElementById("modalEstudiantesContenido");
+            if (isAdmin) {
+                contenedor.innerHTML = `
+                    <h3>📋 Estudiantes inscritos en ${escapeHtml(disciplina)}</h3>
+                    <table class="tabla-estudiantes" id="tablaEstudiantes">
+                        <thead>
+                            <tr><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Correo</th><th>Sección (Nº Carrera)</th><th>Acciones</th></tr>
+                        </thead>
+                        <tbody id="tbodyEstudiantes"></tbody>
+                    </table>
+                    <button class="btn-agregar-estudiante" id="btnAgregarEstudiante">➕ Agregar estudiante</button>
+                    <div class="botones-modal"><button class="btn-cerrar" id="btnCerrarModalEst">Cerrar</button></div>
+                `;
+                const tbody = document.getElementById("tbodyEstudiantes");
+                function renderTabla() {
+                    const lista = estudiantesPorDisciplina[disciplina] || [];
+                    tbody.innerHTML = "";
+                    lista.forEach((est, idx) => {
+                        const row = tbody.insertRow();
+                        row.insertCell(0).textContent = est.nombre;
+                        row.insertCell(1).textContent = est.cedula;
+                        row.insertCell(2).textContent = est.telefono || '';
+                        row.insertCell(3).textContent = est.correo || '';
+                        row.insertCell(4).textContent = est.seccion || '';
+                        const cellAcc = row.insertCell(5);
+                        cellAcc.className = "acciones-estudiante";
+                        const btnEditar = document.createElement("button");
+                        btnEditar.textContent = "✏️";
+                        btnEditar.className = "btn-editar-estudiante";
+                        btnEditar.onclick = () => editarEstudiante(disciplina, idx);
+                        const btnEliminar = document.createElement("button");
+                        btnEliminar.textContent = "🗑️";
+                        btnEliminar.className = "btn-eliminar-estudiante";
+                        btnEliminar.onclick = () => eliminarEstudiante(disciplina, idx);
+                        cellAcc.appendChild(btnEditar);
+                        cellAcc.appendChild(btnEliminar);
+                    });
+                }
+                renderTabla();
+                document.getElementById("btnAgregarEstudiante").onclick = () => agregarEstudiante(disciplina, renderTabla);
+                document.getElementById("btnCerrarModalEst").onclick = () => modal.style.display = "none";
+            } else {
+                contenedor.innerHTML = `
+                    <h3>📋 Estudiantes inscritos en ${escapeHtml(disciplina)}</h3>
+                    <table class="tabla-estudiantes">
+                        <thead><tr><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Correo</th><th>Sección</th></tr></thead>
+                        <tbody>
+                            ${estudiantes.map(e => `<tr><td>${escapeHtml(e.nombre)}</td><td>${escapeHtml(e.cedula)}</td><td>${escapeHtml(e.telefono || '')}</td><td>${escapeHtml(e.correo || '')}</td><td>${escapeHtml(e.seccion || '')}</td>`).join('')}
+                        </tbody>
+                    </table>
+                    <div class="botones-modal"><button class="btn-cerrar" id="btnCerrarModalEst">Cerrar</button></div>
+                `;
+                document.getElementById("btnCerrarModalEst").onclick = () => modal.style.display = "none";
+            }
+            modal.style.display = "flex";
+        }
+
+        function agregarEstudiante(disciplina, callbackRender) {
+            const nombre = prompt("Nombre completo del estudiante:");
+            if (!nombre) return;
+            const cedula = prompt("Número de cédula:");
+            if (!cedula) return;
+            const telefono = prompt("Teléfono:");
+            const correo = prompt("Correo electrónico:");
+            const seccion = prompt("Sección (Número de la carrera):");
+            if (!estudiantesPorDisciplina[disciplina]) estudiantesPorDisciplina[disciplina] = [];
+            estudiantesPorDisciplina[disciplina].push({
+                id: Date.now(),
+                nombre: nombre.trim(),
+                cedula: cedula.trim(),
+                telefono: telefono ? telefono.trim() : '',
+                correo: correo ? correo.trim() : '',
+                seccion: seccion ? seccion.trim() : ''
+            });
+            guardarEstudiantesLocal();
+            if (callbackRender) callbackRender();
+        }
+
+        function editarEstudiante(disciplina, idx) {
+            const estudiante = estudiantesPorDisciplina[disciplina][idx];
+            const nuevoNombre = prompt("Editar nombre:", estudiante.nombre);
+            if (nuevoNombre) estudiante.nombre = nuevoNombre.trim();
+            const nuevaCedula = prompt("Editar cédula:", estudiante.cedula);
+            if (nuevaCedula) estudiante.cedula = nuevaCedula.trim();
+            const nuevoTelefono = prompt("Editar teléfono:", estudiante.telefono || '');
+            if (nuevoTelefono !== null) estudiante.telefono = nuevoTelefono.trim();
+            const nuevoCorreo = prompt("Editar correo:", estudiante.correo || '');
+            if (nuevoCorreo !== null) estudiante.correo = nuevoCorreo.trim();
+            guardarEstudiantesLocal();
+            abrirModalEstudiantes(disciplina);
+        }
+
+        function eliminarEstudiante(disciplina, idx) {
+            if (confirm("¿Eliminar este estudiante?")) {
+                estudiantesPorDisciplina[disciplina].splice(idx, 1);
+                guardarEstudiantesLocal();
+                abrirModalEstudiantes(disciplina);
+            }
+        }
+
+        // -------------------- PERFILES --------------------
         function cargarDatosIniciales() {
             const defaultData = {
-                // Coordinación
-                "Wilfredo Granado": { nombre: "Wilfredo Granado", cargo: "Coordinador Académico", especialidad: "Gestión Deportiva y Educación Física", experiencia: "15 años", email: "wilfredo.granado@unefa.edu.ve", horario: "Lunes a Viernes 8:00 AM - 4:00 PM" },
-                "Peggy Rosalyn Medina": { nombre: "Peggy Rosalyn Medina", cargo: "Asistente de Coordinación", especialidad: "Administración Deportiva", experiencia: "8 años", email: "peggy.medina@unefa.edu.ve", horario: "Lunes a Viernes 8:00 AM - 2:00 PM" },
-                // Profesores
-                "Felix Abreu": { nombre: "Felix Abreu", cargo: "Profesor de Educación Física", especialidad: "Acondicionamiento Físico", experiencia: "10 años", email: "felix.abreu@unefa.edu.ve", horario: "" },
-                "Nakari Antune": { nombre: "Nakari Antune", cargo: "Profesora de Educación Física", especialidad: "Gimnasia y Recreación", experiencia: "7 años", email: "nakari.antune@unefa.edu.ve", horario: "" },
-                "Jesus Abello": { nombre: "Jesus Abello", cargo: "Profesor de Educación Física", especialidad: "Entrenamiento Deportivo", experiencia: "12 años", email: "jesus.abello@unefa.edu.ve", horario: "" },
-                "Tony Herrera": { nombre: "Tony Herrera", cargo: "Profesor de Educación Física", especialidad: "Fisiología del Ejercicio", experiencia: "9 años", email: "tony.herrera@unefa.edu.ve", horario: "" },
-                "Oliver Amundarain": { nombre: "Oliver Amundarain", cargo: "Profesor de Educación Física", especialidad: "Deportes de Contacto", experiencia: "11 años", email: "oliver.amundarain@unefa.edu.ve", horario: "" },
-                "Armando Peña": { nombre: "Armando Peña", cargo: "Profesor de Educación Física", especialidad: "Baloncesto", experiencia: "15 años", email: "armando.pena@unefa.edu.ve", horario: "" },
-                "Giovanni Brito": { nombre: "Giovanni Brito", cargo: "Profesor de Educación Física", especialidad: "Fútbol Sala", experiencia: "8 años", email: "giovanni.brito@unefa.edu.ve", horario: "" },
-                "Sarwinhs Colina": { nombre: "Sarwinhs Colina", cargo: "Profesor de Educación Física", especialidad: "Voleibol", experiencia: "6 años", email: "sarwinhs.colina@unefa.edu.ve", horario: "" },
-                // Entrenadores
-                "Oscar Nieve": { nombre: "Oscar Nieve", cargo: "Entrenador de Baloncesto Masculino", especialidad: "Baloncesto", experiencia: "14 años", email: "oscar.nieve@unefa.edu.ve", horario: "" },
-                "Francisco Bueno": { nombre: "Francisco Bueno", cargo: "Entrenador de Baloncesto Femenino", especialidad: "Baloncesto", experiencia: "10 años", email: "francisco.bueno@unefa.edu.ve", horario: "" },
-                "Richard Echeveri": { nombre: "Richard Echeveri", cargo: "Entrenador de Voleibol Masculino", especialidad: "Voleibol", experiencia: "12 años", email: "richard.echeveri@unefa.edu.ve", horario: "" },
-                "Francisco Domingue": { nombre: "Francisco Domingue", cargo: "Entrenador de Voleibol Femenino", especialidad: "Voleibol", experiencia: "8 años", email: "francisco.domingue@unefa.edu.ve", horario: "" },
-                "Estefani Flores": { nombre: "Estefani Flores", cargo: "Entrenadora de Futsala Masculino", especialidad: "Fútbol Sala", experiencia: "6 años", email: "estefani.flores@unefa.edu.ve", horario: "" },
-                "Yefferson Balladares": { nombre: "Yefferson Balladares", cargo: "Entrenador de Futsala Femenino", especialidad: "Fútbol Sala", experiencia: "7 años", email: "yefferson.balladares@unefa.edu.ve", horario: "" },
-                "Yorvin Pulgar": { nombre: "Yorvin Pulgar", cargo: "Entrenador de Béisbol Five", especialidad: "Béisbol", experiencia: "9 años", email: "yorvin.pulgar@unefa.edu.ve", horario: "" },
-                "Franklin Ferrer": { nombre: "Franklin Ferrer", cargo: "Entrenador de Kikimbol", especialidad: "Kikimbol", experiencia: "11 años", email: "franklin.ferrer@unefa.edu.ve", horario: "" },
-                "Cesar Landaeta": { nombre: "Cesar Landaeta", cargo: "Entrenador de Karate", especialidad: "Karate", experiencia: "16 años", email: "cesar.landaeta@unefa.edu.ve", horario: "" },
-                "Domingo Blanco": { nombre: "Domingo Blanco", cargo: "Entrenador de Kenpo", especialidad: "Kenpo", experiencia: "13 años", email: "domingo.blanco@unefa.edu.ve", horario: "" },
-                "Raynier Noguera": { nombre: "Raynier Noguera", cargo: "Entrenador de MMA", especialidad: "Artes Marciales Mixtas", experiencia: "8 años", email: "raynier.noguera@unefa.edu.ve", horario: "" },
-                "Tulio Cruz": { nombre: "Tulio Cruz", cargo: "Entrenador de Jiu Jitsu", especialidad: "Jiu Jitsu", experiencia: "10 años", email: "tulio.cruz@unefa.edu.ve", horario: "" },
-                "Belifer Corro": { nombre: "Belifer Corro", cargo: "Entrenador de Taekwondo", especialidad: "Taekwondo", experiencia: "12 años", email: "belifer.corro@unefa.edu.ve", horario: "" },
-                "Mamerto Liendo": { nombre: "Mamerto Liendo", cargo: "Entrenador de Lucha", especialidad: "Lucha Olímpica", experiencia: "15 años", email: "mamerto.liendo@unefa.edu.ve", horario: "" },
-                "Leonardo Casares": { nombre: "Leonardo Casares", cargo: "Entrenador de Ajedrez", especialidad: "Ajedrez", experiencia: "20 años", email: "leonardo.casares@unefa.edu.ve", horario: "" },
-                "Luis Moreno": { nombre: "Luis Moreno", cargo: "Preparador Físico Principal", especialidad: "Acondicionamiento Físico de Alto Rendimiento", experiencia: "18 años", email: "luis.moreno@unefa.edu.ve", horario: "" }
+                "Wilfredo Granado": { nombre: "Wilfredo Granado", cargo: "Coordinador Académico", especialidad: "Gestión Deportiva", experiencia: "15 años", email: "wilfredo.granado@unefa.edu.ve", horario: "L-V 8-16", telefono: "+58 212-5551234", seccion: "Coordinación General" },
+                "Peggy Rosalyn Medina": { nombre: "Peggy Rosalyn Medina", cargo: "Asistente de Coordinación", especialidad: "Administración Deportiva", experiencia: "8 años", email: "peggy.medina@unefa.edu.ve", horario: "L-V 8-14", telefono: "+58 212-5555678", seccion: "Asistencia" },
+                "Felix Abreu": { nombre: "Felix Abreu", cargo: "Profesor de Educación Física", especialidad: "Acondicionamiento Físico", experiencia: "10 años", email: "felix.abreu@unefa.edu.ve", horario: "Lunes 8-12, Miércoles 10-12", telefono: "0412-1234567", seccion: "Sección 1" },
+                "Nakari Antune": { nombre: "Nakari Antune", cargo: "Profesora de Educación Física", especialidad: "Gimnasia y Recreación", experiencia: "7 años", email: "nakari.antune@unefa.edu.ve", horario: "Martes 9-12, Jueves 10-12", telefono: "0416-9876543", seccion: "Sección 2" },
+                "Jesus Abello": { nombre: "Jesus Abello", cargo: "Profesor de Educación Física", especialidad: "Entrenamiento Deportivo", experiencia: "12 años", email: "jesus.abello@unefa.edu.ve", horario: "Lunes 14-16, Miércoles 14-16", telefono: "0414-5552222", seccion: "Sección 3" },
+                "Tony Herrera": { nombre: "Tony Herrera", cargo: "Profesor de Educación Física", especialidad: "Fisiología del Ejercicio", experiencia: "9 años", email: "tony.herrera@unefa.edu.ve", horario: "Martes 14-16, Jueves 14-16", telefono: "0424-3334444", seccion: "Sección 4" },
+                "Oliver Amundarain": { nombre: "Oliver Amundarain", cargo: "Profesor de Educación Física", especialidad: "Deportes de Contacto", experiencia: "11 años", email: "oliver.amundarain@unefa.edu.ve", horario: "Viernes 8-12", telefono: "0412-8889999", seccion: "Sección 5" },
+                "Armando Peña": { nombre: "Armando Peña", cargo: "Profesor de Educación Física", especialidad: "Baloncesto", experiencia: "15 años", email: "armando.pena@unefa.edu.ve", horario: "Lunes 10-12, Miércoles 10-12", telefono: "0416-7776666", seccion: "Sección 6" },
+                "Giovanni Brito": { nombre: "Giovanni Brito", cargo: "Profesor de Educación Física", especialidad: "Fútbol Sala", experiencia: "8 años", email: "giovanni.brito@unefa.edu.ve", horario: "Martes 8-10, Jueves 8-10", telefono: "0424-5551111", seccion: "Sección 7" },
+                "Sarwinhs Colina": { nombre: "Sarwinhs Colina", cargo: "Profesor de Educación Física", especialidad: "Voleibol", experiencia: "6 años", email: "sarwinhs.colina@unefa.edu.ve", horario: "Miércoles 8-10, Viernes 10-12", telefono: "0412-4445555", seccion: "Sección 8" },
+                "Luis Moreno": { nombre: "Luis Moreno", cargo: "Preparador Físico Principal", especialidad: "Acondicionamiento Físico de Alto Rendimiento", experiencia: "18 años", email: "luis.moreno@unefa.edu.ve", horario: "L-V 7-9", telefono: "0416-2223333", seccion: "Preparación Física" }
             };
+            Array.from(entrenadoresUnicos).forEach(ent => {
+                if (!defaultData[ent]) {
+                    defaultData[ent] = { nombre: ent, cargo: "Entrenador Deportivo", especialidad: "Deporte", experiencia: "", email: "", horario: "", telefono: "", seccion: "" };
+                }
+            });
             const guardado = localStorage.getItem("profesionalesData");
             if (guardado) {
                 profesionalesData = JSON.parse(guardado);
                 for (let nombre in profesionalesData) {
-                    if (profesionalesData[nombre].horario === undefined) profesionalesData[nombre].horario = "";
+                    if (profesionalesData[nombre].telefono === undefined) profesionalesData[nombre].telefono = "";
+                    if (profesionalesData[nombre].seccion === undefined) profesionalesData[nombre].seccion = "";
                 }
             } else {
                 profesionalesData = defaultData;
@@ -652,260 +927,270 @@
             }
         }
 
-        function guardarDatosLocal() {
-            localStorage.setItem("profesionalesData", JSON.stringify(profesionalesData));
-        }
-
+        function guardarDatosLocal() { localStorage.setItem("profesionalesData", JSON.stringify(profesionalesData)); }
         function actualizarPersona(nombre, nuevosDatos) {
-            if (profesionalesData[nombre]) {
-                profesionalesData[nombre] = { ...profesionalesData[nombre], ...nuevosDatos };
-            } else {
-                profesionalesData[nombre] = nuevosDatos;
-            }
+            profesionalesData[nombre] = { ...profesionalesData[nombre], ...nuevosDatos };
             guardarDatosLocal();
         }
-
         function obtenerDatosPersona(nombre) {
-            if (profesionalesData[nombre]) return profesionalesData[nombre];
-            const nuevos = {
-                nombre: nombre,
-                cargo: "Profesional",
-                especialidad: "Sin especificar",
-                experiencia: "No registrada",
-                email: "",
-                horario: ""
-            };
-            profesionalesData[nombre] = nuevos;
-            guardarDatosLocal();
-            return nuevos;
+            if (!profesionalesData[nombre]) {
+                profesionalesData[nombre] = { nombre, cargo: "Profesional", especialidad: "", experiencia: "", email: "", horario: "", telefono: "", seccion: "" };
+                guardarDatosLocal();
+            }
+            return profesionalesData[nombre];
         }
 
-        // ---------- MODAL PERFIL ----------
+        let currentPersonaNombre = "";
         const modalProf = document.getElementById("modalInfo");
         const modalContenido = document.getElementById("modalContenidoDinamico");
-        let currentPersonaNombre = "";
-
         function mostrarModalPerfil(nombre) {
             currentPersonaNombre = nombre;
             const data = obtenerDatosPersona(nombre);
             if (isAdmin) {
                 modalContenido.innerHTML = `
-                    <h3>✏️ Editar Perfil Profesional</h3>
-                    <label>Nombre completo:</label>
-                    <input type="text" id="editNombre" value="${escapeHtml(data.nombre)}">
-                    <label>Cargo / Rol:</label>
-                    <input type="text" id="editCargo" value="${escapeHtml(data.cargo)}">
-                    <label>Especialidad / Área:</label>
-                    <input type="text" id="editEspecialidad" value="${escapeHtml(data.especialidad)}">
-                    <label>Años de experiencia:</label>
-                    <input type="text" id="editExperiencia" value="${escapeHtml(data.experiencia)}">
-                    <label>Correo de contacto:</label>
-                    <input type="email" id="editEmail" value="${escapeHtml(data.email)}">
-                    <div id="horarioContainer">
-                        <label>📅 Horario de clases (solo administradores):</label>
-                        <textarea id="editHorario" rows="3">${escapeHtml(data.horario || '')}</textarea>
-                    </div>
-                    <div class="botones-modal">
-                        <button class="btn-guardar" id="btnGuardarModal">💾 Guardar cambios</button>
-                        <button class="btn-cerrar" id="btnCerrarModal">❌ Cerrar</button>
-                    </div>
+                    <h3>✏️ Editar Perfil</h3>
+                    <label>Nombre:</label><input type="text" id="editNombre" value="${escapeHtml(data.nombre)}">
+                    <label>Cargo:</label><input type="text" id="editCargo" value="${escapeHtml(data.cargo)}">
+                    <label>Especialidad:</label><input type="text" id="editEspecialidad" value="${escapeHtml(data.especialidad)}">
+                    <label>Experiencia:</label><input type="text" id="editExperiencia" value="${escapeHtml(data.experiencia)}">
+                    <label>Email:</label><input type="email" id="editEmail" value="${escapeHtml(data.email)}">
+                    <label>📞 Teléfono:</label><input type="text" id="editTelefono" value="${escapeHtml(data.telefono)}">
+                    <label>📖 Sección:</label><input type="text" id="editSeccion" value="${escapeHtml(data.seccion)}">
+                    <label>Horario:</label><textarea id="editHorario">${escapeHtml(data.horario)}</textarea>
+                    <div class="botones-modal"><button class="btn-guardar" id="btnGuardarModal">Guardar</button><button class="btn-cerrar" id="btnCerrarModal">Cerrar</button></div>
                 `;
-                document.getElementById("btnGuardarModal").addEventListener("click", guardarPerfilAdmin);
-                document.getElementById("btnCerrarModal").addEventListener("click", cerrarModalProf);
+                document.getElementById("btnGuardarModal").onclick = () => {
+                    actualizarPersona(currentPersonaNombre, {
+                        nombre: document.getElementById("editNombre").value,
+                        cargo: document.getElementById("editCargo").value,
+                        especialidad: document.getElementById("editEspecialidad").value,
+                        experiencia: document.getElementById("editExperiencia").value,
+                        email: document.getElementById("editEmail").value,
+                        telefono: document.getElementById("editTelefono").value,
+                        seccion: document.getElementById("editSeccion").value,
+                        horario: document.getElementById("editHorario").value
+                    });
+                    cerrarModalProf();
+                    alert("Perfil actualizado");
+                };
+                document.getElementById("btnCerrarModal").onclick = cerrarModalProf;
             } else {
                 modalContenido.innerHTML = `
-                    <h3>👤 Información del Profesor</h3>
-                    <label>Nombre completo:</label>
-                    <p><strong>${escapeHtml(data.nombre)}</strong></p>
-                    <label>Cargo / Rol:</label>
-                    <p>${escapeHtml(data.cargo)}</p>
-                    <label>Especialidad / Área:</label>
-                    <p>${escapeHtml(data.especialidad)}</p>
-                    <label>Años de experiencia:</label>
-                    <p>${escapeHtml(data.experiencia)}</p>
-                    <label>Correo de contacto:</label>
-                    <p>${escapeHtml(data.email)}</p>
-                    ${data.horario ? `<label>📅 Horario:</label><p>${escapeHtml(data.horario)}</p>` : ''}
-                    <div class="botones-modal">
-                        <button class="btn-cerrar" id="btnCerrarModal">❌ Cerrar</button>
-                    </div>
+                    <h3>👤 Perfil</h3>
+                    <label>Nombre:</label><p>${escapeHtml(data.nombre)}</p>
+                    <label>Cargo:</label><p>${escapeHtml(data.cargo)}</p>
+                    <label>Especialidad:</label><p>${escapeHtml(data.especialidad)}</p>
+                    <label>Experiencia:</label><p>${escapeHtml(data.experiencia)}</p>
+                    <label>Email:</label><p>${escapeHtml(data.email)}</p>
+                    <label>📞 Teléfono:</label><p>${escapeHtml(data.telefono) || "No registrado"}</p>
+                    <label>📖 Sección:</label><p>${escapeHtml(data.seccion) || "No registrada"}</p>
+                    ${data.horario ? `<label>Horario:</label><p>${escapeHtml(data.horario)}</p>` : ''}
+                    <div class="botones-modal"><button class="btn-cerrar" id="btnCerrarModal">Cerrar</button></div>
                 `;
-                document.getElementById("btnCerrarModal").addEventListener("click", cerrarModalProf);
+                document.getElementById("btnCerrarModal").onclick = cerrarModalProf;
             }
             modalProf.style.display = "flex";
         }
+        function cerrarModalProf() { modalProf.style.display = "none"; }
 
-        function guardarPerfilAdmin() {
-            if (!currentPersonaNombre) return;
-            const nuevosDatos = {
-                nombre: document.getElementById("editNombre").value,
-                cargo: document.getElementById("editCargo").value,
-                especialidad: document.getElementById("editEspecialidad").value,
-                experiencia: document.getElementById("editExperiencia").value,
-                email: document.getElementById("editEmail").value,
-                horario: document.getElementById("editHorario").value
-            };
-            actualizarPersona(currentPersonaNombre, nuevosDatos);
-            cerrarModalProf();
-            alert("✅ Perfil actualizado correctamente.");
+        function asignarEventosClick() {
+            document.querySelectorAll('.lista-profesores li, .nombre-preparador, .personal-card .nombre').forEach(el => {
+                el.removeEventListener('click', (e) => mostrarModalPerfil(e.target.innerText.trim()));
+                el.addEventListener('click', (e) => mostrarModalPerfil(e.target.innerText.trim()));
+            });
         }
 
-        function cerrarModalProf() {
-            modalProf.style.display = "none";
-        }
-
-        // ---------- GESTIÓN DE DOCUMENTOS ----------
+        // -------------------- DOCUMENTOS --------------------
         let documentos = [];
-
         function cargarDocumentos() {
             const guardado = localStorage.getItem("documentosEstudiantiles");
-            if (guardado) {
-                documentos = JSON.parse(guardado);
-            } else {
-                documentos = [];
-                localStorage.setItem("documentosEstudiantiles", JSON.stringify(documentos));
-            }
+            documentos = guardado ? JSON.parse(guardado) : [];
             renderizarDocumentos();
         }
-
-        function guardarDocumentosLocal() {
-            localStorage.setItem("documentosEstudiantiles", JSON.stringify(documentos));
-        }
-
+        function guardarDocumentosLocal() { localStorage.setItem("documentosEstudiantiles", JSON.stringify(documentos)); }
         function renderizarDocumentos() {
             const contenedor = document.getElementById("listaDocumentos");
             if (!contenedor) return;
-            if (documentos.length === 0) {
-                contenedor.innerHTML = '<p style="color: gray;">No hay documentos disponibles.</p>';
-                return;
-            }
+            if (!documentos.length) { contenedor.innerHTML = '<p style="color: gray;">No hay documentos.</p>'; return; }
             contenedor.innerHTML = "";
             documentos.forEach(doc => {
-                const div = document.createElement("div");
-                div.className = "documento-item";
-                let acciones = `<button class="btn-descargar" data-id="${doc.id}">⬇️ Descargar</button>`;
-                if (isAdmin) {
-                    acciones += `<button class="btn-eliminar-doc" data-id="${doc.id}">🗑️ Eliminar</button>`;
+                const div = document.createElement("div"); div.className = "documento-item";
+                div.innerHTML = `<div class="documento-info"><div class="documento-nombre">📄 ${escapeHtml(doc.nombre)}</div><div class="documento-fecha">${doc.fecha}</div>${doc.descripcion ? `<div class="documento-desc">${escapeHtml(doc.descripcion)}</div>` : ''}</div>
+                <div><button class="btn-descargar" data-id="${doc.id}">⬇️ Descargar</button>${isAdmin ? `<button class="btn-eliminar-doc" data-id="${doc.id}">🗑️</button>` : ''}</div>`;
+                contenedor.appendChild(div);
+            });
+            document.querySelectorAll('.btn-descargar').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const doc = documentos.find(d=>d.id===id); if(doc?.dataURL) { let a=document.createElement('a'); a.href=doc.dataURL; a.download=doc.nombre; a.click(); } }));
+            if(isAdmin) document.querySelectorAll('.btn-eliminar-doc').forEach(btn => btn.addEventListener('click', (e) => { if(confirm("Eliminar?")){ documentos=documentos.filter(d=>d.id!==parseInt(btn.dataset.id)); guardarDocumentosLocal(); renderizarDocumentos(); } }));
+        }
+        const modalDoc = document.getElementById("modalDocumento");
+        document.getElementById("btnAbrirModalDocumento")?.addEventListener("click", ()=>{ modalDoc.style.display="flex"; });
+        document.getElementById("btnCerrarModalDoc")?.addEventListener("click", ()=> modalDoc.style.display="none");
+        document.getElementById("btnGuardarDocumento")?.addEventListener("click", ()=>{
+            if(!isAdmin) return alert("Sin permisos");
+            const nombre = document.getElementById("docNombre").value.trim();
+            const desc = document.getElementById("docDescripcion").value.trim();
+            const archivo = document.getElementById("docArchivo").files[0];
+            if(!nombre || !archivo) return alert("Nombre y archivo requeridos");
+            if(archivo.size>5*1024*1024) return alert("Máx 5MB");
+            const reader = new FileReader();
+            reader.onload = e => {
+                documentos.push({ id:Date.now(), nombre, descripcion:desc, fecha:new Date().toLocaleString(), dataURL:e.target.result, tamaño:archivo.size });
+                guardarDocumentosLocal(); renderizarDocumentos(); modalDoc.style.display="none";
+                alert("Documento subido");
+            };
+            reader.readAsDataURL(archivo);
+        });
+
+        // -------------------- SERCOM --------------------
+        function cargarSercom() {
+            const guardado = localStorage.getItem("sercomItems");
+            sercomItems = guardado ? JSON.parse(guardado) : [];
+            renderizarSercom();
+        }
+        function guardarSercomLocal() { localStorage.setItem("sercomItems", JSON.stringify(sercomItems)); }
+        function renderizarSercom() {
+            const contenedor = document.getElementById("listaSercom");
+            if (!contenedor) return;
+            if (!sercomItems.length) { contenedor.innerHTML = '<p style="color: gray;">No hay comunicados aún.</p>'; return; }
+            contenedor.innerHTML = "";
+            sercomItems.forEach(item => {
+                const div = document.createElement("div"); div.className = "sercom-item";
+                let imagenesHtml = '';
+                if (item.imagenes && item.imagenes.length) {
+                    imagenesHtml = `<div class="sercom-imagenes">${item.imagenes.map(img => `<img src="${img}" alt="imagen" onclick="window.open('${img}','_blank')">`).join('')}</div>`;
                 }
                 div.innerHTML = `
-                    <div class="documento-info">
-                        <div class="documento-nombre">📄 ${escapeHtml(doc.nombre)}</div>
-                        <div class="documento-fecha">📅 ${escapeHtml(doc.fecha)}</div>
-                        ${doc.descripcion ? `<div class="documento-desc">📝 ${escapeHtml(doc.descripcion)}</div>` : ''}
-                        <div class="documento-tamaño">📎 ${formatFileSize(doc.tamaño)}</div>
+                    <div class="secom-info">
+                        <div class="sercom-titulo">📢 ${escapeHtml(item.titulo)}</div>
+                        <div class="sercom-fecha">${item.fecha}</div>
+                        <div class="sercom-texto">${escapeHtml(item.texto).replace(/\n/g, '<br>')}</div>
+                        ${imagenesHtml}
                     </div>
-                    <div style="display: flex; gap: 0.5rem;">
-                        ${acciones}
-                    </div>
+                    ${isAdmin ? `<div><button class="btn-editar-sercom" data-id="${item.id}">✏️ Editar</button><button class="btn-eliminar-sercom" data-id="${item.id}">🗑️ Eliminar</button></div>` : ''}
                 `;
                 contenedor.appendChild(div);
             });
-            document.querySelectorAll('.btn-descargar').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = parseInt(btn.getAttribute('data-id'));
-                    const doc = documentos.find(d => d.id === id);
-                    if (doc && doc.dataURL) {
-                        const link = document.createElement('a');
-                        link.href = doc.dataURL;
-                        link.download = doc.nombre;
-                        link.click();
-                    } else {
-                        alert("Archivo no disponible.");
-                    }
-                });
-            });
-            if (isAdmin) {
-                document.querySelectorAll('.btn-eliminar-doc').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const id = parseInt(btn.getAttribute('data-id'));
-                        if (confirm("¿Eliminar este documento?")) {
-                            documentos = documentos.filter(d => d.id !== id);
-                            guardarDocumentosLocal();
-                            renderizarDocumentos();
-                            alert("Documento eliminado.");
-                        }
-                    });
-                });
+            if(isAdmin) {
+                document.querySelectorAll('.btn-editar-secom').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); editarSercom(id); }));
+                document.querySelectorAll('.btn-eliminar-secom').forEach(btn => btn.addEventListener('click', (e) => { if(confirm("¿Eliminar este comunicado?")){ const id = parseInt(btn.dataset.id); sercomItems = sercomItems.filter(i => i.id !== id); guardarSercomLocal(); renderizarSercom(); } }));
             }
         }
 
-        function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
-        function formatFileSize(bytes) { if (bytes === 0) return "0 Bytes"; const k = 1024; const sizes = ["Bytes", "KB", "MB"]; const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]; }
-
-        const modalDoc = document.getElementById("modalDocumento");
-        const btnAbrirDoc = document.getElementById("btnAbrirModalDocumento");
-        const btnGuardarDoc = document.getElementById("btnGuardarDocumento");
-        const btnCerrarDoc = document.getElementById("btnCerrarModalDoc");
-        const inputNombre = document.getElementById("docNombre");
-        const inputDesc = document.getElementById("docDescripcion");
-        const inputArchivo = document.getElementById("docArchivo");
-        const errorSpan = document.getElementById("errorArchivo");
-
-        function abrirModalDocumento() { inputNombre.value = ""; inputDesc.value = ""; inputArchivo.value = ""; errorSpan.innerText = ""; modalDoc.style.display = "flex"; }
-        function cerrarModalDocumento() { modalDoc.style.display = "none"; }
-        function guardarDocumento() {
-            if (!isAdmin) { alert("No tienes permisos."); return; }
-            const nombre = inputNombre.value.trim();
-            const descripcion = inputDesc.value.trim();
-            const archivo = inputArchivo.files[0];
-            if (!nombre) { errorSpan.innerText = "Nombre obligatorio."; return; }
-            if (!archivo) { errorSpan.innerText = "Seleccione un archivo."; return; }
-            const maxSize = 5 * 1024 * 1024;
-            if (archivo.size > maxSize) { errorSpan.innerText = "Máximo 5 MB."; return; }
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const dataURL = e.target.result;
-                const nuevoDoc = { id: Date.now(), nombre: nombre, descripcion: descripcion, fecha: new Date().toLocaleString(), dataURL: dataURL, tipo: archivo.type, tamaño: archivo.size };
-                documentos.push(nuevoDoc);
-                guardarDocumentosLocal();
-                renderizarDocumentos();
-                cerrarModalDocumento();
-                alert(`✅ Documento "${nombre}" guardado.`);
-            };
-            reader.onerror = function() { errorSpan.innerText = "Error al leer archivo."; };
-            reader.readAsDataURL(archivo);
+        let editingSercomId = null;
+        function abrirModalSercom(editItem = null) {
+            editingSercomId = editItem ? editItem.id : null;
+            document.getElementById("modalSercomTitle").innerText = editItem ? "✏️ Editar Comunicado" : "📢 Agregar Comunicado";
+            document.getElementById("sercomTitulo").value = editItem ? editItem.titulo : "";
+            document.getElementById("sercomTexto").value = editItem ? editItem.texto : "";
+            document.getElementById("sercomImagenes").value = "";
+            document.getElementById("sercomImagenesPreview").innerHTML = "";
+            if(editItem && editItem.imagenes) {
+                editItem.imagenes.forEach((img, idx) => {
+                    const imgDiv = document.createElement("div");
+                    imgDiv.style.position = "relative";
+                    imgDiv.style.display = "inline-block";
+                    imgDiv.innerHTML = `<img src="${img}" style="max-width:80px; max-height:80px; border-radius:8px;"><button type="button" style="position:absolute; top:-5px; right:-5px; background:red; color:white; border:none; border-radius:50%; width:20px; height:20px; cursor:pointer;" data-imgidx="${idx}">X</button>`;
+                    imgDiv.querySelector("button").addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        editItem.imagenes.splice(idx,1);
+                        abrirModalSercom(editItem); // refresh preview
+                    });
+                    document.getElementById("sercomImagenesPreview").appendChild(imgDiv);
+                });
+            }
+            document.getElementById("modalSercom").style.display = "flex";
         }
-
-        // ---------- EVENTOS CLICK ----------
-        function handleClickPersona(e) {
-            e.stopPropagation();
-            const nombre = this.innerText.trim();
-            mostrarModalPerfil(nombre);
-        }
-
-        function asignarEventosClick() {
-            // Profesores de la lista, entrenadores y preparador
-            document.querySelectorAll('.lista-profesores li, .entrenador, .nombre-preparador').forEach(el => {
-                el.removeEventListener('click', handleClickPersona);
-                el.addEventListener('click', handleClickPersona);
+        function cerrarModalSercom() { document.getElementById("modalSercom").style.display = "none"; editingSercomId = null; }
+        function guardarSercom() {
+            if(!isAdmin) return alert("Solo el administrador puede modificar comunicados");
+            const titulo = document.getElementById("sercomTitulo").value.trim();
+            const texto = document.getElementById("sercomTexto").value.trim();
+            if(!titulo) return alert("El título es obligatorio");
+            const imagenesFiles = document.getElementById("sercomImagenes").files;
+            const imagenesPromises = [];
+            for(let file of imagenesFiles) {
+                if(!file.type.startsWith('image/')) continue;
+                const promise = new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = e => resolve(e.target.result);
+                    reader.readAsDataURL(file);
+                });
+                imagenesPromises.push(promise);
+            }
+            Promise.all(imagenesPromises).then(nuevasImagenes => {
+                if(editingSercomId) {
+                    const index = sercomItems.findIndex(i => i.id === editingSrecomId);
+                    if(index !== -1) {
+                        let existingImgs = sercomItems[index].imagenes || [];
+                        sercomItems[index] = {
+                            ...secomItems[index],
+                            titulo,
+                            texto,
+                            imagenes: [...existingImgs, ...nuevasImagenes],
+                            fecha: new Date().toLocaleString()
+                        };
+                    }
+                } else {
+                    sercomItems.push({
+                        id: Date.now(),
+                        titulo,
+                        texto,
+                        imagenes: nuevasImagenes,
+                        fecha: new Date().toLocaleString()
+                    });
+                }
+                guardarSercomLocal();
+                renderizarSercom();
+                cerrarModalSercom();
             });
-            // Coordinador y asistente (dentro de .personal-card .nombre)
-            document.querySelectorAll('.personal-card .nombre').forEach(el => {
-                el.removeEventListener('click', handleClickPersona);
-                el.addEventListener('click', handleClickPersona);
-            });
         }
+        function editarSercom(id) {
+            if(!isAdmin) return alert("No tienes permisos");
+            const item = sercomItems.find(i => i.id === id);
+            if(item) abrirModalSercom(item);
+        }
+        // Eventos SERCOM
+        const btnAgregarSercom = document.getElementById("btnAbrirModalSecom");
+        if(btnAgregarSercom) btnAgregarSercom.addEventListener("click", () => { if(isAdmin) abrirModalSercom(); else alert("Solo administrador"); });
+        document.getElementById("btnCerrarModalSercom")?.addEventListener("click", cerrarModalSercom);
+        document.getElementById("btnGuardarSercom")?.addEventListener("click", guardarSercom);
+
+        // -------------------- ADMIN Y ARRANQUE --------------------
+        function setAdminMode(adminStatus) {
+            isAdmin = adminStatus;
+            const adminBtn = document.getElementById("adminBtn");
+            const adminDocControls = document.getElementById("adminDocControls");
+            const adminSercomControls = document.getElementById("adminSercomControls");
+            if (isAdmin) {
+                adminBtn.textContent = "👑 Modo Admin Activo";
+                adminBtn.style.background = "var(--dorado-oscuro)";
+                if (adminDocControls) adminDocControls.style.display = "block";
+                if (adminSercomControls) adminSercomControls.style.display = "block";
+                alert("Modo administrador activado");
+            } else {
+                adminBtn.textContent = "🔑 Acceso Administrador";
+                adminBtn.style.background = "var(--azul-profundo)";
+                if (adminDocControls) adminDocControls.style.display = "none";
+                if (adminSercomControls) adminSercomControls.style.display = "none";
+            }
+            renderizarDocumentos();
+            renderizarSecom();
+        }
+        function loginAdmin() { const pwd = prompt("Contraseña:"); if(pwd===ADMIN_PASSWORD) setAdminMode(true); else if(pwd) alert("Incorrecta"); }
+        document.getElementById("adminBtn").addEventListener("click", loginAdmin);
 
         function init() {
+            cargarEstudiantesLocal();
+            inicializarDisciplinasDesdeDOM();
             cargarDatosIniciales();
             asignarEventosClick();
             cargarDocumentos();
-            document.getElementById("adminBtn").addEventListener("click", loginAdmin);
-            if(btnAbrirDoc) btnAbrirDoc.addEventListener("click", abrirModalDocumento);
-            if(btnGuardarDoc) btnGuardarDoc.addEventListener("click", guardarDocumento);
-            if(btnCerrarDoc) btnCerrarDoc.addEventListener("click", cerrarModalDocumento);
-            if(modalDoc) modalDoc.addEventListener("click", function(e) { if (e.target === modalDoc) cerrarModalDocumento(); });
-            if(modalProf) modalProf.addEventListener("click", function(e) { if (e.target === modalProf) cerrarModalProf(); });
+            cargarSercom();
             setAdminMode(false);
         }
-
-        function toggleDropdown(button) {
-            const dropdown = button.parentElement;
-            document.querySelectorAll('.dropdown').forEach(d => { if (d !== dropdown) d.classList.remove('active'); });
-            dropdown.classList.toggle('active');
-        }
-        window.onclick = function(e) { if (!e.target.matches('.dropdown-button')) { document.querySelectorAll('.dropdown').forEach(d => { if (!d.contains(e.target)) d.classList.remove('active'); }); } }
-        window.toggleDropdown = toggleDropdown;
+        window.toggleDropdown = function(btn) { const drop = btn.parentElement; document.querySelectorAll('.dropdown').forEach(d=>{ if(d!==drop) d.classList.remove('active'); }); drop.classList.toggle('active'); };
+        window.onclick = e => { if(!e.target.matches('.dropdown-button')) document.querySelectorAll('.dropdown').forEach(d=>{ if(!d.contains(e.target)) d.classList.remove('active'); }); };
+        function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
         init();
     </script>
 </body>
