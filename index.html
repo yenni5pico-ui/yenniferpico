@@ -129,27 +129,24 @@
             background-color: var(--dorado-claro);
             color: var(--azul-profundo);
         }
-        /* Estilos para la imagen QR */
+        /* Estilos para la imagen QR (nueva posición y tamaño más grande) */
         .qr-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 100px;
-            height: 100px;
-            background: white;
-            padding: 5px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-            z-index: 5;
             display: flex;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
+            align-items: center;
+            margin: 2rem auto 1rem auto;
+            width: 140px;
+            height: 140px;
+            background: white;
+            padding: 8px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
             cursor: pointer;
+            position: relative;
         }
         .qr-container:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
         .qr-container img {
             width: 100%;
@@ -160,16 +157,18 @@
         .qr-upload-btn {
             position: absolute;
             bottom: -30px;
-            right: 0;
+            left: 50%;
+            transform: translateX(-50%);
             background: var(--azul-profundo);
             color: white;
             border: none;
             border-radius: 20px;
-            padding: 2px 8px;
+            padding: 2px 12px;
             font-size: 0.7rem;
             cursor: pointer;
             display: none;
             white-space: nowrap;
+            z-index: 10;
         }
         .qr-container:hover .qr-upload-btn {
             display: block;
@@ -541,7 +540,7 @@
             .modal-contenido { padding: 1.5rem; }
             .documento-item, .secom-item { flex-direction: column; align-items: flex-start; }
             .tabla-estudiantes th, .tabla-estudiantes td { padding: 4px; font-size: 0.8rem; }
-            .qr-container { width: 70px; height: 70px; top: 10px; right: 10px; }
+            .qr-container { width: 110px; height: 110px; }
         }
     </style>
 </head>
@@ -559,11 +558,6 @@
     </header>
 
     <section class="coordinacion">
-        <!-- Contenedor para la imagen QR (usando el archivo proporcionado) -->
-        <div class="qr-container" id="qrContainer">
-            <img id="qrImage" src="qr-code (1).png" alt="Código QR">
-            <button id="qrUploadBtn" class="qr-upload-btn" style="display: none;">📷 Cambiar QR</button>
-        </div>
         <h3>🏀⚾🏐⚽ Coordinación del Departamento 🥋🥊🤼🥋</h3>
         <div class="personal-grid">
             <div class="personal-card">
@@ -576,6 +570,11 @@
                 <div class="cargo">Asistente de Coordinación</div>
                 <div class="nombre">Peggy Rosalyn Medina</div>
             </div>
+        </div>
+        <!-- NUEVA UBICACIÓN DEL QR: debajo de las tarjetas y antes del menú principal -->
+        <div class="qr-container" id="qrContainer">
+            <img id="qrImage" src="qr-code (1).png" alt="Código QR">
+            <button id="qrUploadBtn" class="qr-upload-btn" style="display: none;">📷 Cambiar QR</button>
         </div>
     </section>
 
@@ -933,7 +932,7 @@
                     <table class="tabla-estudiantes">
                         <thead><tr><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Correo</th><th>Sección</th></thead>
                         <tbody>
-                            ${estudiantes.map(e => `<tr><td>${escapeHtml(e.nombre)}</td><td>${escapeHtml(e.cedula)}</td><td>${escapeHtml(e.telefono || '')}</td><td>${escapeHtml(e.correo || '')}</td><td>${escapeHtml(e.seccion || '')}</td>`).join('')}
+                            ${estudiantes.map(e => `<td><td>${escapeHtml(e.nombre)}</td><td>${escapeHtml(e.cedula)}</td><td>${escapeHtml(e.telefono || '')}</td><td>${escapeHtml(e.correo || '')}</td><td>${escapeHtml(e.seccion || '')}</td>`).join('')}
                         </tbody>
                     </table>
                     <div class="botones-modal"><button class="btn-cerrar" id="btnCerrarModalEst">Cerrar</button></div>
@@ -1278,7 +1277,7 @@
             asignarEventosClick();
             cargarDocumentos();
             cargarSercom();
-            cargarQR();               // Cargar imagen QR guardada si existe
+            cargarQR();
             setAdminMode(false);
             if (qrUploadBtn) qrUploadBtn.addEventListener("click", subirImagenQR);
         }
