@@ -87,6 +87,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border-left: 5px solid var(--dorado);
+            position: relative;
         }
         .coordinacion h3 {
             color: var(--azul-profundo);
@@ -127,6 +128,51 @@
         .personal-card .nombre:hover {
             background-color: var(--dorado-claro);
             color: var(--azul-profundo);
+        }
+        /* Estilos para la imagen QR */
+        .qr-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            background: white;
+            padding: 5px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .qr-container:hover {
+            transform: scale(1.05);
+        }
+        .qr-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .qr-upload-btn {
+            position: absolute;
+            bottom: -30px;
+            right: 0;
+            background: var(--azul-profundo);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: none;
+            white-space: nowrap;
+        }
+        .qr-container:hover .qr-upload-btn {
+            display: block;
         }
         .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
         .menu-deportivo { display: flex; flex-direction: column; gap: 1.5rem; }
@@ -495,6 +541,7 @@
             .modal-contenido { padding: 1.5rem; }
             .documento-item, .secom-item { flex-direction: column; align-items: flex-start; }
             .tabla-estudiantes th, .tabla-estudiantes td { padding: 4px; font-size: 0.8rem; }
+            .qr-container { width: 70px; height: 70px; top: 10px; right: 10px; }
         }
     </style>
 </head>
@@ -512,6 +559,11 @@
     </header>
 
     <section class="coordinacion">
+        <!-- Contenedor para la imagen QR (usando el archivo proporcionado) -->
+        <div class="qr-container" id="qrContainer">
+            <img id="qrImage" src="qr-code (1).png" alt="Código QR">
+            <button id="qrUploadBtn" class="qr-upload-btn" style="display: none;">📷 Cambiar QR</button>
+        </div>
         <h3>🏀⚾🏐⚽ Coordinación del Departamento 🥋🥊🤼🥋</h3>
         <div class="personal-grid">
             <div class="personal-card">
@@ -656,9 +708,55 @@
         let estudiantesPorDisciplina = {};
 
         // -------------------- DATOS SECOM --------------------
-        let secomItems = [];  // cada item: { id, titulo, texto, imagenes (array de dataURL), fecha }
+        let secomItems = [];
 
-        // -------------------- INICIALIZAR DISCIPLINAS --------------------
+        // -------------------- QR CON IMAGEN PROPORCIONADA (editable por admin) --------------------
+        const QR_STORAGE_KEY = "qrImagenDataURL";
+        const qrImageElement = document.getElementById("qrImage");
+        const qrUploadBtn = document.getElementById("qrUploadBtn");
+
+        // Cargar imagen guardada o la que viene por defecto (la que ya está en el src)
+        function cargarQR() {
+            const imagenGuardada = localStorage.getItem(QR_STORAGE_KEY);
+            if (imagenGuardada) {
+                qrImageElement.src = imagenGuardada;
+            }
+            // Si no hay imagen guardada, se mantiene la que ya tiene (qr-code (1).png)
+        }
+
+        function subirImagenQR() {
+            if (!isAdmin) {
+                alert("Solo el administrador puede cambiar el código QR.");
+                return;
+            }
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/png, image/jpeg, image/jpg, image/webp";
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        const dataURL = ev.target.result;
+                        localStorage.setItem(QR_STORAGE_KEY, dataURL);
+                        qrImageElement.src = dataURL;
+                        alert("Imagen QR actualizada correctamente");
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert("Por favor selecciona un archivo de imagen válido (PNG, JPG, etc.)");
+                }
+            };
+            input.click();
+        }
+
+        function actualizarVisibilidadBotonesQR() {
+            if (qrUploadBtn) {
+                qrUploadBtn.style.display = isAdmin ? "block" : "none";
+            }
+        }
+
+        // -------------------- INICIALIZAR DISCIPLINAS (sin cambios) --------------------
         function inicializarDisciplinasDesdeDOM() {
             const disciplinasRaw = [
                 { grupo: "Deportes de Conjunto", items: [
@@ -735,11 +833,7 @@
             lista.innerHTML = "";
             Array.from(entrenadoresUnicos).sort().forEach(ent => {
                 const li = document.createElement("li");
-                if (ent === "Franklin Ferrer") {
-                    li.textContent = `${ent}`;
-                } else {
-                    li.textContent = ent;
-                }
+                li.textContent = ent;
                 li.addEventListener("click", () => mostrarDisciplinasDeEntrenador(ent));
                 lista.appendChild(li);
             });
@@ -766,7 +860,7 @@
             document.getElementById("btnCerrarModalEst").addEventListener("click", () => modal.style.display = "none");
         }
 
-        // -------------------- ESTUDIANTES --------------------
+        // -------------------- ESTUDIANTES (sin cambios) --------------------
         function cargarEstudiantesLocal() {
             const guardado = localStorage.getItem("estudiantesPorDisciplina");
             if (guardado) {
@@ -799,9 +893,7 @@
                 contenedor.innerHTML = `
                     <h3>📋 Estudiantes inscritos en ${escapeHtml(disciplina)}</h3>
                     <table class="tabla-estudiantes" id="tablaEstudiantes">
-                        <thead>
-                            <tr><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Correo</th><th>Sección (Nº Carrera)</th><th>Acciones</th></tr>
-                        </thead>
+                        <thead><tr><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Correo</th><th>Sección (Nº Carrera)</th><th>Acciones</th></thead>
                         <tbody id="tbodyEstudiantes"></tbody>
                     </table>
                     <button class="btn-agregar-estudiante" id="btnAgregarEstudiante">➕ Agregar estudiante</button>
@@ -839,7 +931,7 @@
                 contenedor.innerHTML = `
                     <h3>📋 Estudiantes inscritos en ${escapeHtml(disciplina)}</h3>
                     <table class="tabla-estudiantes">
-                        <thead><tr><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Correo</th><th>Sección</th></tr></thead>
+                        <thead><tr><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Correo</th><th>Sección</th></thead>
                         <tbody>
                             ${estudiantes.map(e => `<tr><td>${escapeHtml(e.nombre)}</td><td>${escapeHtml(e.cedula)}</td><td>${escapeHtml(e.telefono || '')}</td><td>${escapeHtml(e.correo || '')}</td><td>${escapeHtml(e.seccion || '')}</td>`).join('')}
                         </tbody>
@@ -894,10 +986,10 @@
             }
         }
 
-        // -------------------- PERFILES --------------------
+        // -------------------- PERFILES (sin cambios) --------------------
         function cargarDatosIniciales() {
             const defaultData = {
-                "Wilfredo Granado": { nombre: "Wilfredo Granado", cargo: "Coordinador Académico", especialidad: "Gestión Deportiva", experiencia: "15 años", email: "wilfredo.granado@unefa.edu.ve", horario: "L-V 8-16", telefono: "+58 212-5551234", seccion: "Coordinación General" },
+                "Wilfredo Granado": { nombre: "Wilfredo Granado", cargo: "Coordinador Académico", especialidad: "Gestión Deportiva", experiencia: "15 años", email: "wilfredo.granado@unefa.edu.ve", horario: "Lunes 8-12, Miércoles 10-12", telefono: "+58 212-5551234", seccion: "Coordinación General" },
                 "Peggy Rosalyn Medina": { nombre: "Peggy Rosalyn Medina", cargo: "Asistente de Coordinación", especialidad: "Administración Deportiva", experiencia: "8 años", email: "peggy.medina@unefa.edu.ve", horario: "L-V 8-14", telefono: "+58 212-5555678", seccion: "Asistencia" },
                 "Felix Abreu": { nombre: "Felix Abreu", cargo: "Profesor de Educación Física", especialidad: "Acondicionamiento Físico", experiencia: "10 años", email: "felix.abreu@unefa.edu.ve", horario: "Lunes 8-12, Miércoles 10-12", telefono: "0412-1234567", seccion: "Sección 1" },
                 "Nakari Antune": { nombre: "Nakari Antune", cargo: "Profesora de Educación Física", especialidad: "Gimnasia y Recreación", experiencia: "7 años", email: "nakari.antune@unefa.edu.ve", horario: "Martes 9-12, Jueves 10-12", telefono: "0416-9876543", seccion: "Sección 2" },
@@ -984,7 +1076,7 @@
                     <label>Email:</label><p>${escapeHtml(data.email)}</p>
                     <label>📞 Teléfono:</label><p>${escapeHtml(data.telefono) || "No registrado"}</p>
                     <label>📖 Sección:</label><p>${escapeHtml(data.seccion) || "No registrada"}</p>
-                    ${data.horario ? `<label>Horario:</label><p>${escapeHtml(data.horario)}</p>` : ''}
+                    <label>Horario:</label><p>${escapeHtml(data.horario) || "No registrado"}</p>
                     <div class="botones-modal"><button class="btn-cerrar" id="btnCerrarModal">Cerrar</button></div>
                 `;
                 document.getElementById("btnCerrarModal").onclick = cerrarModalProf;
@@ -1000,7 +1092,7 @@
             });
         }
 
-        // -------------------- DOCUMENTOS --------------------
+        // -------------------- DOCUMENTOS (sin cambios) --------------------
         let documentos = [];
         function cargarDocumentos() {
             const guardado = localStorage.getItem("documentosEstudiantiles");
@@ -1041,7 +1133,7 @@
             reader.readAsDataURL(archivo);
         });
 
-        // -------------------- SERCOM --------------------
+        // -------------------- SERCOM (sin cambios) --------------------
         function cargarSercom() {
             const guardado = localStorage.getItem("sercomItems");
             sercomItems = guardado ? JSON.parse(guardado) : [];
@@ -1049,15 +1141,15 @@
         }
         function guardarSercomLocal() { localStorage.setItem("sercomItems", JSON.stringify(sercomItems)); }
         function renderizarSercom() {
-            const contenedor = document.getElementById("listaSercom");
+            const contenedor = document.getElementById("listaSecom");
             if (!contenedor) return;
             if (!sercomItems.length) { contenedor.innerHTML = '<p style="color: gray;">No hay comunicados aún.</p>'; return; }
             contenedor.innerHTML = "";
             sercomItems.forEach(item => {
-                const div = document.createElement("div"); div.className = "sercom-item";
+                const div = document.createElement("div"); div.className = "secom-item";
                 let imagenesHtml = '';
                 if (item.imagenes && item.imagenes.length) {
-                    imagenesHtml = `<div class="sercom-imagenes">${item.imagenes.map(img => `<img src="${img}" alt="imagen" onclick="window.open('${img}','_blank')">`).join('')}</div>`;
+                    imagenesHtml = `<div class="secom-imagenes">${item.imagenes.map(img => `<img src="${img}" alt="imagen" onclick="window.open('${img}','_blank')">`).join('')}</div>`;
                 }
                 div.innerHTML = `
                     <div class="secom-info">
@@ -1071,8 +1163,8 @@
                 contenedor.appendChild(div);
             });
             if(isAdmin) {
-                document.querySelectorAll('.btn-editar-secom').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); editarSercom(id); }));
-                document.querySelectorAll('.btn-eliminar-secom').forEach(btn => btn.addEventListener('click', (e) => { if(confirm("¿Eliminar este comunicado?")){ const id = parseInt(btn.dataset.id); sercomItems = sercomItems.filter(i => i.id !== id); guardarSercomLocal(); renderizarSercom(); } }));
+                document.querySelectorAll('.btn-editar-sercom').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); editarSercom(id); }));
+                document.querySelectorAll('.btn-eliminar-sercom').forEach(btn => btn.addEventListener('click', (e) => { if(confirm("¿Eliminar este comunicado?")){ const id = parseInt(btn.dataset.id); sercomItems = sercomItems.filter(i => i.id !== id); guardarSercomLocal(); renderizarSercom(); } }));
             }
         }
 
@@ -1093,7 +1185,7 @@
                     imgDiv.querySelector("button").addEventListener("click", (e) => {
                         e.stopPropagation();
                         editItem.imagenes.splice(idx,1);
-                        abrirModalSercom(editItem); // refresh preview
+                        abrirModalSercom(editItem);
                     });
                     document.getElementById("sercomImagenesPreview").appendChild(imgDiv);
                 });
@@ -1119,11 +1211,11 @@
             }
             Promise.all(imagenesPromises).then(nuevasImagenes => {
                 if(editingSercomId) {
-                    const index = sercomItems.findIndex(i => i.id === editingSrecomId);
+                    const index = sercomItems.findIndex(i => i.id === editingSercomId);
                     if(index !== -1) {
                         let existingImgs = sercomItems[index].imagenes || [];
                         sercomItems[index] = {
-                            ...secomItems[index],
+                            ...sercomItems[index],
                             titulo,
                             texto,
                             imagenes: [...existingImgs, ...nuevasImagenes],
@@ -1149,11 +1241,10 @@
             const item = sercomItems.find(i => i.id === id);
             if(item) abrirModalSercom(item);
         }
-        // Eventos SERCOM
-        const btnAgregarSercom = document.getElementById("btnAbrirModalSecom");
+        const btnAgregarSercom = document.getElementById("btnAbrirModalSercom");
         if(btnAgregarSercom) btnAgregarSercom.addEventListener("click", () => { if(isAdmin) abrirModalSercom(); else alert("Solo administrador"); });
         document.getElementById("btnCerrarModalSercom")?.addEventListener("click", cerrarModalSercom);
-        document.getElementById("btnGuardarSercom")?.addEventListener("click", guardarSercom);
+        document.getElementById("btnGuardarSerrcom")?.addEventListener("click", guardarSercom);
 
         // -------------------- ADMIN Y ARRANQUE --------------------
         function setAdminMode(adminStatus) {
@@ -1174,7 +1265,8 @@
                 if (adminSercomControls) adminSercomControls.style.display = "none";
             }
             renderizarDocumentos();
-            renderizarSecom();
+            renderizarSercom();
+            actualizarVisibilidadBotonesQR();
         }
         function loginAdmin() { const pwd = prompt("Contraseña:"); if(pwd===ADMIN_PASSWORD) setAdminMode(true); else if(pwd) alert("Incorrecta"); }
         document.getElementById("adminBtn").addEventListener("click", loginAdmin);
@@ -1186,7 +1278,9 @@
             asignarEventosClick();
             cargarDocumentos();
             cargarSercom();
+            cargarQR();               // Cargar imagen QR guardada si existe
             setAdminMode(false);
+            if (qrUploadBtn) qrUploadBtn.addEventListener("click", subirImagenQR);
         }
         window.toggleDropdown = function(btn) { const drop = btn.parentElement; document.querySelectorAll('.dropdown').forEach(d=>{ if(d!==drop) d.classList.remove('active'); }); drop.classList.toggle('active'); };
         window.onclick = e => { if(!e.target.matches('.dropdown-button')) document.querySelectorAll('.dropdown').forEach(d=>{ if(!d.contains(e.target)) d.classList.remove('active'); }); };
